@@ -46,7 +46,8 @@ class Property
     private $price_per_night;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Type::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $type;
 
@@ -136,12 +137,12 @@ class Property
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?Type
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?Type $type): self
     {
         $this->type = $type;
 

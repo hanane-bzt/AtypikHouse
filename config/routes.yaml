@@ -2,6 +2,9 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+home:
+    path: /
+    controller: App\Controller\DefaultController::index
 
 user_list:
     path: /users
@@ -27,3 +30,12 @@ user_delete:
     path: /users/{id}
     controller: App\Controller\UserController::deleteUser
     methods: DELETE
+
+login_check:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+registration:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
