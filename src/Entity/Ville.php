@@ -16,6 +16,9 @@ class Ville
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $pays = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Ville
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): static
+    {
+        $this->pays = $pays;
 
         return $this;
     }

@@ -891,3 +891,24 @@ a4dd1a,127.0.0.1,GET,https://127.0.0.1:8000/adminer-4.8.1-mysql-en.php,171719789
 279215,127.0.0.1,GET,https://127.0.0.1:8000/adminer-4.8.1-mysql-en.php,1717197898,85f3b4,404,request
 85f3b4,127.0.0.1,GET,https://127.0.0.1:8000/adminer-4.8.1-mysql-en.php,1717197898,,404,request
 >>>>>>> 800da8f74867a04f422191bc7e311e323bca75fe
+595734,127.0.0.1,GET,http://localhost:54273/,1717203603,,200,request
+8ecbbc,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203676,,302,request
+b88d50,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203679,,302,request
+2d3318,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203680,,302,request
+ffe896,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203681,,302,request
+d41dbc,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203681,,302,request
+9f97ff,127.0.0.1,GET,http://localhost:54273/,1717203682,,200,request
+31e5b2,127.0.0.1,GET,http://localhost:54273/,1717203682,,200,request
+54289b,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203683,,302,request
+1b1555,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203683,,302,request
+9f3142,127.0.0.1,GET,http://localhost:54273/login,1717203685,,200,request
+1d180a,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203690,,302,request
+80df55,127.0.0.1,GET,http://localhost:54273/login,1717203690,,200,request
+f14157,127.0.0.1,GET,http://localhost:54273/login,1717203707,29c4b2,500,request
+29c4b2,127.0.0.1,POST,http://localhost:54273/login,1717203707,,500,request
+5803e0,127.0.0.1,GET,http://localhost:54273/login,1717203757,,200,request
+e3102e,127.0.0.1,POST,http://localhost:54273/login,1717203767,,302,request
+96fdd1,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203768,,200,request
+1097a2,127.0.0.1,GET,http://localhost:54273/admin/address,1717203770,,200,request
+f49503,127.0.0.1,GET,http://localhost:54273/admin/category,1717203772,,200,request
+ecbbca,127.0.0.1,GET,http://localhost:54273/admin/habitats/,1717203773,,200,request
