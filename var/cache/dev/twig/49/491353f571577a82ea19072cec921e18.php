@@ -1724,6 +1724,6 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 483) == Twig
         </div>
     {% endif %}
 {% endblock %}
-", "@Security/Collector/security.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
+", "@Security/Collector/security.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
     }
 }

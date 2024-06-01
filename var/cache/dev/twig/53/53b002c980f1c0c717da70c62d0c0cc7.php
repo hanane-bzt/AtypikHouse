@@ -172,6 +172,6 @@ class __TwigTemplate_cb87ed1aeb5fe88b07f03fe985b3c7db extends Template
         <button type=\"submit\" class=\"btn\">Register</button>
     {{ form_end(registrationForm) }} #}
 {% endblock %}
-", "registration/register.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/registration/register.html.twig");
+", "registration/register.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/registration/register.html.twig");
     }
 }
