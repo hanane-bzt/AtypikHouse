@@ -105,6 +105,6 @@ class __TwigTemplate_f639ed0d6999c12b35bedf0829cea435 extends Template
 <p>
     Cheers!
 </p>
-", "registration/confirmation_email.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/registration/confirmation_email.html.twig");
+", "registration/confirmation_email.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/registration/confirmation_email.html.twig");
     }
 }

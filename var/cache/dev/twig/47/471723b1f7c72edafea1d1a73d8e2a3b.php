@@ -282,6 +282,6 @@ class __TwigTemplate_03b3dd0d15dbc4adf0eb98b4dbd7ae19 extends Template
     </div>
 {%- endblock -%}
 
-", "@VichUploader/Form/fields.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/vich/uploader-bundle/templates/Form/fields.html.twig");
+", "@VichUploader/Form/fields.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/vich/uploader-bundle/templates/Form/fields.html.twig");
     }
 }

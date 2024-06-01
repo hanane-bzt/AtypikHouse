@@ -131,6 +131,6 @@ class __TwigTemplate_f051332d0c05528a8aa1d0ffbedc7fd5 extends Template
 {% block body %}
 Home
 {% endblock %}
-", "home/index.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/home/index.html.twig");
+", "home/index.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/home/index.html.twig");
     }
 }

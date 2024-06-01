@@ -1850,6 +1850,6 @@ class __TwigTemplate_2117a06e7c385cc83f34531de97277da extends Template
         </tbody>
     </table>
 {% endmacro %}
-", "@Doctrine/Collector/db.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
+", "@Doctrine/Collector/db.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
     }
 }

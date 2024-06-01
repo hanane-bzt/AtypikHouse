@@ -102,6 +102,6 @@ class __TwigTemplate_940208d8951385d679dde744849d604b extends Template
      {{ messages | join('. ')}}
 </div>
 
-{% endfor %}", "partials/flash.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/partials/flash.html.twig");
+{% endfor %}", "partials/flash.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/partials/flash.html.twig");
     }
 }
