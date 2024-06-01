@@ -28,6 +28,15 @@ class Habitat
     #[Assert\Length(min: 5)]
     #[BanWord]
     private string $title = '';
+    
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10)]
+    private string $address = '';
+    
+    #[ORM\Column(length: 10)]
+    #[Assert\Length(min: 5)]
+    #[BanWord]
+    private string $codePostal = '';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Positive()]
@@ -47,7 +56,7 @@ class Habitat
     private ?bool $en_vente = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 15)]
     private string $content = '';
 
     #[ORM\Column]
@@ -71,6 +80,10 @@ class Habitat
 
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
+
+    
+    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
+    private ?Ville $ville = null;
 
     public function getId(): ?int
     {
@@ -149,6 +162,30 @@ class Habitat
         return $this;
     }
 
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->codePostal;
+    }
+
+    public function setPostalCode(string $codePostal): static
+    {
+        $this->title = $codePostal;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -222,15 +259,15 @@ class Habitat
         return $this;
     }
 
-    // public function getAddress(): ?Address
-    // {
-    //     return $this->address;
-    // }
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
 
-    // public function setAddress(?Address $address): static
-    // {
-    //     $this->address = $address;
+    public function setVille(?Ville $ville): static
+    {
+        $this->ville = $ville;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 }
