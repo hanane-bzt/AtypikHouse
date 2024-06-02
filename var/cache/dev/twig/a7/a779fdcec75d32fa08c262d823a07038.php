@@ -985,6 +985,6 @@ class __TwigTemplate_9c67925f3e84f537475364c4d05f679b extends Template
         {% endautoescape %}</script>
     </div>
 {% endmacro %}
-", "@WebProfiler/Collector/time.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.html.twig");
+", "@WebProfiler/Collector/time.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.html.twig");
     }
 }

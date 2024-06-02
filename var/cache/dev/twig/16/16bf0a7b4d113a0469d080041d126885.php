@@ -173,6 +173,6 @@ class __TwigTemplate_935cdd03fcf1d7c145f4caf298f203e0 extends Template
 
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url, name: 'time', status: status_color }) }}
 {% endblock %}
-", "@WebProfiler/Collector/memory.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/memory.html.twig");
+", "@WebProfiler/Collector/memory.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/memory.html.twig");
     }
 }

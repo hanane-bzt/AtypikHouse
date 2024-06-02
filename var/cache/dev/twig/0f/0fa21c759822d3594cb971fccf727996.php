@@ -2197,6 +2197,6 @@ class __TwigTemplate_9d170e15f2c081f8078d61f8de822eea extends Template
         </tbody>
     </table>
 {% endmacro %}
-", "@WebProfiler/Collector/form.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/form.html.twig");
+", "@WebProfiler/Collector/form.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Collector/form.html.twig");
     }
 }

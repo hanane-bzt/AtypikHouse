@@ -66,7 +66,7 @@ class __TwigTemplate_f051332d0c05528a8aa1d0ffbedc7fd5 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Hello HomeController!";
+        yield "Bienvenue sur AtypikHouse !";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -126,11 +126,11 @@ class __TwigTemplate_f051332d0c05528a8aa1d0ffbedc7fd5 extends Template
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Bienvenue sur AtypikHouse !{% endblock %}
 
 {% block body %}
 Home
 {% endblock %}
-", "home/index.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/home/index.html.twig");
+", "home/index.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/home/index.html.twig");
     }
 }

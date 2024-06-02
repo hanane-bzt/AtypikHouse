@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\PaysRepository;
+use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
-#[ORM\Entity(repositoryClass: PaysRepository::class)]
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
 #[UniqueEntity('name')]
 #[UniqueEntity('slug')]
 class Pays
@@ -21,11 +21,11 @@ class Pays
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 3)]
     private string $name = '';
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 3)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
      private string $slug = '';
 
@@ -124,5 +124,10 @@ class Pays
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

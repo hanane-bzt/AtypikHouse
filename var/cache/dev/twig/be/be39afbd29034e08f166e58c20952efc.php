@@ -107,12 +107,23 @@ class __TwigTemplate_c2f82d57cece9ceda26ae2915908cd92 extends Template
                           <li class=\"nav-item\">
                           <a class=\"nav-link ";
         // line 37
-        if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 37, $this->source); })()), "request", [], "any", false, false, false, 37), "attributes", [], "any", false, false, false, 37), "get", ["_route"], "method", false, false, false, 37) == "admin.address.index")) {
+        if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 37, $this->source); })()), "request", [], "any", false, false, false, 37), "attributes", [], "any", false, false, false, 37), "get", ["_route"], "method", false, false, false, 37) == "admin.city.index")) {
             yield "active";
         }
         yield "\" href=\"";
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.address.index");
-        yield "\">Adresses</a>
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.city.index");
+        yield "\">Villes</a>
+                         </li>
+
+                         <li class=\"nav-item\">
+                          <a class=\"nav-link ";
+        // line 41
+        if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "request", [], "any", false, false, false, 41), "attributes", [], "any", false, false, false, 41), "get", ["_route"], "method", false, false, false, 41) == "admin.country.index")) {
+            yield "active";
+        }
+        yield "\" href=\"";
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.country.index");
+        yield "\">Pays</a>
                          </li>
                       </ul>
                 </div>
@@ -121,14 +132,14 @@ class __TwigTemplate_c2f82d57cece9ceda26ae2915908cd92 extends Template
 
         <div  class=\"container my-4  align-items-center\" style=\"max-width: 900px;\">
             ";
-        // line 45
-        yield from         $this->loadTemplate("partials/flash.html.twig", "admin/admin.html.twig", 45)->unwrap()->yield($context);
-        // line 46
+        // line 49
+        yield from         $this->loadTemplate("partials/flash.html.twig", "admin/admin.html.twig", 49)->unwrap()->yield($context);
+        // line 50
         yield "            
             ";
-        // line 47
+        // line 51
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 48
+        // line 52
         yield "
         </div>
 
@@ -229,7 +240,7 @@ class __TwigTemplate_c2f82d57cece9ceda26ae2915908cd92 extends Template
         return; yield '';
     }
 
-    // line 47
+    // line 51
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -269,7 +280,7 @@ class __TwigTemplate_c2f82d57cece9ceda26ae2915908cd92 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  233 => 47,  213 => 16,  202 => 17,  199 => 16,  189 => 15,  178 => 13,  168 => 12,  148 => 5,  132 => 48,  130 => 47,  127 => 46,  125 => 45,  110 => 37,  100 => 34,  90 => 31,  80 => 24,  72 => 18,  70 => 15,  67 => 14,  65 => 12,  55 => 5,  49 => 1,);
+        return array (  244 => 51,  224 => 16,  213 => 17,  210 => 16,  200 => 15,  189 => 13,  179 => 12,  159 => 5,  143 => 52,  141 => 51,  138 => 50,  136 => 49,  121 => 41,  110 => 37,  100 => 34,  90 => 31,  80 => 24,  72 => 18,  70 => 15,  67 => 14,  65 => 12,  55 => 5,  49 => 1,);
     }
 
     public function getSourceContext()
@@ -310,7 +321,11 @@ class __TwigTemplate_c2f82d57cece9ceda26ae2915908cd92 extends Template
                           <a class=\"nav-link {% if app.request.attributes.get('_route') == 'admin.category.index' %}active{% endif %}\" href=\"{{ path('admin.category.index') }}\">Catégories</a>
                          </li>
                           <li class=\"nav-item\">
-                          <a class=\"nav-link {% if app.request.attributes.get('_route') == 'admin.address.index' %}active{% endif %}\" href=\"{{ path('admin.address.index') }}\">Adresses</a>
+                          <a class=\"nav-link {% if app.request.attributes.get('_route') == 'admin.city.index' %}active{% endif %}\" href=\"{{ path('admin.city.index') }}\">Villes</a>
+                         </li>
+
+                         <li class=\"nav-item\">
+                          <a class=\"nav-link {% if app.request.attributes.get('_route') == 'admin.country.index' %}active{% endif %}\" href=\"{{ path('admin.country.index') }}\">Pays</a>
                          </li>
                       </ul>
                 </div>

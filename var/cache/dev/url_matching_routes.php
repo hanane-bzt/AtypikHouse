@@ -18,6 +18,10 @@ return [
         '/admin/address/create' => [[['_route' => 'admin.address.create', '_controller' => 'App\\Controller\\Admin\\AddressController::create'], null, null, null, false, false, null]],
         '/admin/category' => [[['_route' => 'admin.category.index', '_controller' => 'App\\Controller\\Admin\\CategoryController::index'], null, null, null, false, false, null]],
         '/admin/category/create' => [[['_route' => 'admin.category.create', '_controller' => 'App\\Controller\\Admin\\CategoryController::create'], null, null, null, false, false, null]],
+        '/admin/city' => [[['_route' => 'admin.city.index', '_controller' => 'App\\Controller\\Admin\\CityController::index'], null, null, null, false, false, null]],
+        '/admin/city/create' => [[['_route' => 'admin.city.create', '_controller' => 'App\\Controller\\Admin\\CityController::create'], null, null, null, false, false, null]],
+        '/admin/country' => [[['_route' => 'admin.country.index', '_controller' => 'App\\Controller\\Admin\\CountryController::index'], null, null, null, false, false, null]],
+        '/admin/country/create' => [[['_route' => 'admin.country.create', '_controller' => 'App\\Controller\\Admin\\CountryController::create'], null, null, null, false, false, null]],
         '/admin/habitats' => [[['_route' => 'admin.habitat.index', '_controller' => 'App\\Controller\\Admin\\HabitaController::index'], null, null, null, true, false, null]],
         '/admin/habitats/create' => [[['_route' => 'admin.habitat.create', '_controller' => 'App\\Controller\\Admin\\HabitaController::create'], null, null, null, false, false, null]],
         '/contact' => [[['_route' => 'contact', '_controller' => 'App\\Controller\\ContactController::contact'], null, null, null, false, false, null]],
@@ -51,11 +55,19 @@ return [
                     .'|address/([0-9]+)(?'
                         .'|(*:231)'
                     .')'
-                    .'|category/([0-9]+)(?'
-                        .'|(*:260)'
+                    .'|c(?'
+                        .'|ategory/([0-9]+)(?'
+                            .'|(*:263)'
+                        .')'
+                        .'|ity/([0-9]+)(?'
+                            .'|(*:287)'
+                        .')'
+                        .'|ountry/([0-9]+)(?'
+                            .'|(*:314)'
+                        .')'
                     .')'
                     .'|habitats/([0-9]+)(?'
-                        .'|(*:289)'
+                        .'|(*:344)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -73,11 +85,19 @@ return [
             [['_route' => 'admin.address.edit', '_controller' => 'App\\Controller\\Admin\\AddressController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [['_route' => 'admin.address.delete', '_controller' => 'App\\Controller\\Admin\\AddressController::remove'], ['id'], ['DELETE' => 0], null, false, true, null],
         ],
-        260 => [
+        263 => [
             [['_route' => 'admin.category.edit', '_controller' => 'App\\Controller\\Admin\\CategoryController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [['_route' => 'admin.category.delete', '_controller' => 'App\\Controller\\Admin\\CategoryController::remove'], ['id'], ['DELETE' => 0], null, false, true, null],
         ],
-        289 => [
+        287 => [
+            [['_route' => 'admin.city.edit', '_controller' => 'App\\Controller\\Admin\\CityController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+            [['_route' => 'admin.city.delete', '_controller' => 'App\\Controller\\Admin\\CityController::remove'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        314 => [
+            [['_route' => 'admin.country.edit', '_controller' => 'App\\Controller\\Admin\\CountryController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
+            [['_route' => 'admin.country.delete', '_controller' => 'App\\Controller\\Admin\\CountryController::remove'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        344 => [
             [['_route' => 'admin.habitat.edit', '_controller' => 'App\\Controller\\Admin\\HabitaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [['_route' => 'admin.habitat.delete', '_controller' => 'App\\Controller\\Admin\\HabitaController::remove'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],

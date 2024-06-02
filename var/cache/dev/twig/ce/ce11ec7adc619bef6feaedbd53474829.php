@@ -106,6 +106,6 @@ class __TwigTemplate_f3e5824c9e8fc3c48df96c8b37054f52 extends Template
        </form>
     </div>
 </div>
-", "@WebProfiler/Profiler/header.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/header.html.twig");
+", "@WebProfiler/Profiler/header.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/header.html.twig");
     }
 }

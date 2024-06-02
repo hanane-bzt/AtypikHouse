@@ -34,13 +34,18 @@ class Habitat
     private string $address = '';
     
     #[ORM\Column(length: 10)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(max: 10)]
+    #[Assert\Type(type: 'numeric', message: 'Le code postal doit être un nombre')]
+    #[Assert\NotBlank(message: 'Le code postal ne peut pas être vide')]
+    #[Assert\Positive(message: 'Le code postal doit être un nombre positif')]
     #[BanWord]
     private string $codePostal = '';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    #[Assert\Positive()]
-    private string $capacity = '';
+    #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
+    #[Assert\NotBlank(message: 'La capacité ne peut pas être vide')]
+    #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
+    private ?string $capacity = '';
 
     #[ORM\Column]
     #[Assert\NotBlank()]
@@ -174,14 +179,14 @@ class Habitat
         return $this;
     }
 
-    public function getPostalCode(): string
+    public function getCodePostal(): string
     {
         return $this->codePostal;
     }
 
-    public function setPostalCode(string $codePostal): static
+    public function setCodePostal(string $codePostal): static
     {
-        $this->title = $codePostal;
+        $this->codePostal=$codePostal;
 
         return $this;
     }

@@ -727,6 +727,6 @@ class __TwigTemplate_73523fefb889d4835841cf86a96ac38d extends Template
     });
 })();
 </script>
-", "@WebProfiler/Profiler/settings.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/settings.html.twig");
+", "@WebProfiler/Profiler/settings.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/settings.html.twig");
     }
 }

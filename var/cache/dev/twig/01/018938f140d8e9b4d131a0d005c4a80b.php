@@ -330,6 +330,6 @@ class __TwigTemplate_6b6b929c7ea59350b091271dfa332f1d extends Template
         </tbody>
     </table>
 {% endblock %}
-", "@VichUploader/Collector/mapping_collector.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/vich/uploader-bundle/templates/Collector/mapping_collector.html.twig");
+", "@VichUploader/Collector/mapping_collector.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/vich/uploader-bundle/templates/Collector/mapping_collector.html.twig");
     }
 }

@@ -114,6 +114,17 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.habitat.index");
         yield "\">Habitats</a>
                            </li>
+
+                           <li class=\"nav-item\">
+                                <a class=\"nav-link ";
+        // line 45
+        if ((is_string($__internal_compile_2 = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 45, $this->source); })()), "request", [], "any", false, false, false, 45), "attributes", [], "any", false, false, false, 45), "get", ["_route"], "method", false, false, false, 45)) && is_string($__internal_compile_3 = "ville.") && str_starts_with($__internal_compile_2, $__internal_compile_3))) {
+            yield "active";
+        }
+        yield "\" href=\"";
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.city.index");
+        yield "\">Villes</a>
+                           </li>
                       </ul>
                 </div>
         </div>
@@ -121,14 +132,14 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
 
         <div  class=\"container my-4  align-items-center\" style=\"max-width: 900px;\">
             ";
-        // line 49
-        yield from         $this->loadTemplate("partials/flash.html.twig", "base.html.twig", 49)->unwrap()->yield($context);
-        // line 50
+        // line 53
+        yield from         $this->loadTemplate("partials/flash.html.twig", "base.html.twig", 53)->unwrap()->yield($context);
+        // line 54
         yield "            
             ";
-        // line 51
+        // line 55
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 52
+        // line 56
         yield "
         </div>
 
@@ -229,7 +240,7 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
         return; yield '';
     }
 
-    // line 51
+    // line 55
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -269,7 +280,7 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
      */
     public function getDebugInfo()
     {
-        return array (  233 => 51,  213 => 18,  202 => 19,  199 => 18,  189 => 17,  178 => 15,  168 => 14,  148 => 5,  132 => 52,  130 => 51,  127 => 50,  125 => 49,  110 => 41,  97 => 35,  85 => 26,  77 => 20,  75 => 17,  72 => 16,  70 => 14,  65 => 12,  55 => 5,  49 => 1,);
+        return array (  244 => 55,  224 => 18,  213 => 19,  210 => 18,  200 => 17,  189 => 15,  179 => 14,  159 => 5,  143 => 56,  141 => 55,  138 => 54,  136 => 53,  121 => 45,  110 => 41,  97 => 35,  85 => 26,  77 => 20,  75 => 17,  72 => 16,  70 => 14,  65 => 12,  55 => 5,  49 => 1,);
     }
 
     public function getSourceContext()
@@ -316,6 +327,10 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
                           <li class=\"nav-item\">
                                 <a class=\"nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}\" href=\"{{ path('admin.habitat.index') }}\">Habitats</a>
                            </li>
+
+                           <li class=\"nav-item\">
+                                <a class=\"nav-link {% if app.request.attributes.get('_route') starts with 'ville.' %}active{% endif %}\" href=\"{{ path('admin.city.index') }}\">Villes</a>
+                           </li>
                       </ul>
                 </div>
         </div>
@@ -330,6 +345,6 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
 
     </body>
 </html>
-", "base.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/templates/base.html.twig");
+", "base.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/templates/base.html.twig");
     }
 }

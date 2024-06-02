@@ -458,6 +458,6 @@ class __TwigTemplate_49b6f8178ef3e0f2762355beae90d8b7 extends Template
         </div>
     {% endfor %}
 {% endblock %}
-", "@Debug/Profiler/dump.html.twig", "/home/hallalou@mmtt.fr/projetaty/AtypikHouse/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
+", "@Debug/Profiler/dump.html.twig", "/home/benou/framework-symfony/Symfony/AtypikHouse/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
     }
 }

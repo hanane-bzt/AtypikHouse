@@ -410,6 +410,20 @@
         <argument type="service" id=".service_locator.jUv.zyj.App\Controller\Admin\CategoryController"/>
       </call>
     </service>
+    <service id="App\Controller\Admin\CityController" class="App\Controller\Admin\CityController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\Admin\CityController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Admin\CountryController" class="App\Controller\Admin\CountryController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.jUv.zyj.App\Controller\Admin\CountryController"/>
+      </call>
+    </service>
     <service id="App\Controller\Admin\HabitaController" class="App\Controller\Admin\HabitaController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -455,8 +469,16 @@
       <tag name="form.type"/>
       <argument type="service" id="App\Form\FormListenerFactory"/>
     </service>
+    <service id="App\Form\CityType" class="App\Form\CityType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+      <argument type="service" id="App\Form\FormListenerFactory"/>
+    </service>
     <service id="App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+    </service>
+    <service id="App\Form\CountryType" class="App\Form\CountryType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+      <argument type="service" id="App\Form\FormListenerFactory"/>
     </service>
     <service id="App\Form\FormListenerFactory" class="App\Form\FormListenerFactory" autowire="true" autoconfigure="true">
       <argument type="service" id="slugger"/>
@@ -476,19 +498,19 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\CityRepository" class="App\Repository\CityRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\CountryRepository" class="App\Repository\CountryRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\HabitatRepository" class="App\Repository\HabitatRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\PaysRepository" class="App\Repository\PaysRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
-    </service>
     <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
-    </service>
-    <service id="App\Repository\VilleRepository" class="App\Repository\VilleRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -532,7 +554,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.w4JRPTK"/>
+      <argument type="service" id=".service_locator.nk5W7Ix"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1456,7 +1478,9 @@
       <argument type="collection">
         <argument>App\Form\AddressType</argument>
         <argument>App\Form\CategoryType</argument>
+        <argument>App\Form\CityType</argument>
         <argument>App\Form\ContactType</argument>
+        <argument>App\Form\CountryType</argument>
         <argument>App\Form\HabitatType</argument>
         <argument>App\Form\RegistrationFormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -3566,7 +3590,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.w4JRPTK"/>
+      <argument type="service" id=".service_locator.nk5W7Ix"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -4050,7 +4074,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.4H7Vn9X"/>
+      <argument type="service" id=".service_locator.MxSpfb6"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5355,7 +5379,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.hp_FmVV"/>
+      <argument type="service" id=".service_locator.5R2SLdI"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7846,6 +7870,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\CategoryController" class="App\Controller\Admin\CategoryController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CategoryController" class="App\Controller\Admin\CategoryController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\CategoryController" class="App\Controller\Admin\CategoryController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\CityController" class="App\Controller\Admin\CityController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CityController" class="App\Controller\Admin\CityController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\CityController" class="App\Controller\Admin\CityController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\CountryController" class="App\Controller\Admin\CountryController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\CountryController" class="App\Controller\Admin\CountryController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Admin\CountryController" class="App\Controller\Admin\CountryController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Admin\HabitaController" class="App\Controller\Admin\HabitaController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Admin\HabitaController" class="App\Controller\Admin\HabitaController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Admin\HabitaController" class="App\Controller\Admin\HabitaController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7865,8 +7895,12 @@
     <service id=".abstract.instanceof.App\Form\AddressType" class="App\Form\AddressType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CategoryType" class="App\Form\CategoryType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CityType" class="App\Form\CityType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CityType" class="App\Form\CityType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ContactType" class="App\Form\ContactType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CountryType" class="App\Form\CountryType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CountryType" class="App\Form\CountryType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\HabitatType" class="App\Form\HabitatType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\HabitatType" class="App\Form\HabitatType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
@@ -7875,14 +7909,14 @@
     <service id=".abstract.instanceof.App\Repository\AddressRepository" class="App\Repository\AddressRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CityRepository" class="App\Repository\CityRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CityRepository" class="App\Repository\CityRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CountryRepository" class="App\Repository\CountryRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CountryRepository" class="App\Repository\CountryRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\HabitatRepository" class="App\Repository\HabitatRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\HabitatRepository" class="App\Repository\HabitatRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PaysRepository" class="App\Repository\PaysRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\PaysRepository" class="App\Repository\PaysRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\VilleRepository" class="App\Repository\VilleRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\VilleRepository" class="App\Repository\VilleRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Validator\ConstraintValidatorInterface.0.App\Validator\BanWordValidator" class="App\Validator\BanWordValidator" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Validator\BanWordValidator" class="App\Validator\BanWordValidator" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.bJ.4HC5" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8340,6 +8374,32 @@
         <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.DYuyVBM" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="repository" type="service_closure" id="App\Repository\CityRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.2_NzmnZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="city" type="service_closure" id=".errored..service_locator.2_NzmnZ.App\Entity\Ville"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator..7s9Fb7" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="repository" type="service_closure" id="App\Repository\CountryRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.1dW180q" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="country" type="service_closure" id=".errored..service_locator.1dW180q.App\Entity\Pays"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.5FwXUg4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8395,7 +8455,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.w4JRPTK" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.nk5W7Ix" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AddressController::create" type="service_closure" id=".service_locator.9kKwU2t"/>
@@ -8406,6 +8466,14 @@
         <argument key="App\Controller\Admin\CategoryController::edit" type="service_closure" id=".service_locator.gKPBAx1"/>
         <argument key="App\Controller\Admin\CategoryController::index" type="service_closure" id=".service_locator.EywQEQi"/>
         <argument key="App\Controller\Admin\CategoryController::remove" type="service_closure" id=".service_locator.gKPBAx1"/>
+        <argument key="App\Controller\Admin\CityController::create" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\Admin\CityController::edit" type="service_closure" id=".service_locator.2_NzmnZ"/>
+        <argument key="App\Controller\Admin\CityController::index" type="service_closure" id=".service_locator.DYuyVBM"/>
+        <argument key="App\Controller\Admin\CityController::remove" type="service_closure" id=".service_locator.2_NzmnZ"/>
+        <argument key="App\Controller\Admin\CountryController::create" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\Admin\CountryController::edit" type="service_closure" id=".service_locator.1dW180q"/>
+        <argument key="App\Controller\Admin\CountryController::index" type="service_closure" id=".service_locator..7s9Fb7"/>
+        <argument key="App\Controller\Admin\CountryController::remove" type="service_closure" id=".service_locator.1dW180q"/>
         <argument key="App\Controller\Admin\HabitaController::create" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\Admin\HabitaController::edit" type="service_closure" id=".service_locator.MipyDka"/>
         <argument key="App\Controller\Admin\HabitaController::index" type="service_closure" id=".service_locator.5FwXUg4"/>
@@ -8427,6 +8495,14 @@
         <argument key="App\Controller\Admin\CategoryController:edit" type="service_closure" id=".service_locator.gKPBAx1"/>
         <argument key="App\Controller\Admin\CategoryController:index" type="service_closure" id=".service_locator.EywQEQi"/>
         <argument key="App\Controller\Admin\CategoryController:remove" type="service_closure" id=".service_locator.gKPBAx1"/>
+        <argument key="App\Controller\Admin\CityController:create" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\Admin\CityController:edit" type="service_closure" id=".service_locator.2_NzmnZ"/>
+        <argument key="App\Controller\Admin\CityController:index" type="service_closure" id=".service_locator.DYuyVBM"/>
+        <argument key="App\Controller\Admin\CityController:remove" type="service_closure" id=".service_locator.2_NzmnZ"/>
+        <argument key="App\Controller\Admin\CountryController:create" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\Admin\CountryController:edit" type="service_closure" id=".service_locator.1dW180q"/>
+        <argument key="App\Controller\Admin\CountryController:index" type="service_closure" id=".service_locator..7s9Fb7"/>
+        <argument key="App\Controller\Admin\CountryController:remove" type="service_closure" id=".service_locator.1dW180q"/>
         <argument key="App\Controller\Admin\HabitaController:create" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\Admin\HabitaController:edit" type="service_closure" id=".service_locator.MipyDka"/>
         <argument key="App\Controller\Admin\HabitaController:index" type="service_closure" id=".service_locator.5FwXUg4"/>
@@ -8598,12 +8674,14 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.4H7Vn9X" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.MxSpfb6" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\AddressType" type="service_closure" id="App\Form\AddressType"/>
         <argument key="App\Form\CategoryType" type="service_closure" id="App\Form\CategoryType"/>
+        <argument key="App\Form\CityType" type="service_closure" id="App\Form\CityType"/>
         <argument key="App\Form\ContactType" type="service_closure" id="App\Form\ContactType"/>
+        <argument key="App\Form\CountryType" type="service_closure" id="App\Form\CountryType"/>
         <argument key="App\Form\HabitatType" type="service_closure" id="App\Form\HabitatType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
@@ -8736,15 +8814,15 @@
         <argument key="vich_uploader.listener.upload.habitats" type="service_closure" id="vich_uploader.listener.upload.habitats"/>
       </argument>
     </service>
-    <service id=".service_locator.hp_FmVV" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.5R2SLdI" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AddressRepository" type="service_closure" id="App\Repository\AddressRepository"/>
         <argument key="App\Repository\CategoryRepository" type="service_closure" id="App\Repository\CategoryRepository"/>
+        <argument key="App\Repository\CityRepository" type="service_closure" id="App\Repository\CityRepository"/>
+        <argument key="App\Repository\CountryRepository" type="service_closure" id="App\Repository\CountryRepository"/>
         <argument key="App\Repository\HabitatRepository" type="service_closure" id="App\Repository\HabitatRepository"/>
-        <argument key="App\Repository\PaysRepository" type="service_closure" id="App\Repository\PaysRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
-        <argument key="App\Repository\VilleRepository" type="service_closure" id="App\Repository\VilleRepository"/>
       </argument>
     </service>
     <service id=".service_locator.KLVvNIq" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -9124,6 +9202,18 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.jUv.zyj" method="withContext"/>
     </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\Admin\CityController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\CityController"/>
+      <argument>App\Controller\Admin\CityController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
+    <service id=".service_locator.jUv.zyj.App\Controller\Admin\CountryController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Admin\CountryController"/>
+      <argument>App\Controller\Admin\CountryController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.jUv.zyj" method="withContext"/>
+    </service>
     <service id=".service_locator.jUv.zyj.App\Controller\Admin\HabitaController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Admin\HabitaController"/>
       <argument>App\Controller\Admin\HabitaController</argument>
@@ -9335,6 +9425,8 @@
           <argument>App\Kernel</argument>
           <argument>App\Controller\Admin\AddressController</argument>
           <argument>App\Controller\Admin\CategoryController</argument>
+          <argument>App\Controller\Admin\CityController</argument>
+          <argument>App\Controller\Admin\CountryController</argument>
           <argument>App\Controller\Admin\HabitaController</argument>
           <argument>App\Controller\ContactController</argument>
           <argument>App\Controller\HomeController</argument>
@@ -9546,6 +9638,12 @@
     </service>
     <service id=".errored..service_locator.gKPBAx1.App\Entity\Category" class="App\Entity\Category">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.gKPBAx1&quot;: it needs an instance of &quot;App\Entity\Category&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.2_NzmnZ.App\Entity\Ville" class="App\Entity\Ville">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.2_NzmnZ&quot;: it needs an instance of &quot;App\Entity\Ville&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.1dW180q.App\Entity\Pays" class="App\Entity\Pays">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.1dW180q&quot;: it needs an instance of &quot;App\Entity\Pays&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.MipyDka.App\Entity\Habitat" class="App\Entity\Habitat">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.MipyDka&quot;: it needs an instance of &quot;App\Entity\Habitat&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -10738,7 +10836,7 @@
     <service id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" alias="Knp\Component\Pager\ArgumentAccess\RequestArgumentAccess"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.bJ.4HC5" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.w4JRPTK"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.nk5W7Ix"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -10786,6 +10884,10 @@
     <service id=".service_locator.OM4x76Z" alias=".service_locator.DxaZoDO"/>
     <service id=".service_locator.8NYU1ro" alias=".service_locator.EywQEQi"/>
     <service id=".service_locator.PRet2hw" alias=".service_locator.gKPBAx1"/>
+    <service id=".service_locator.8aCPRqS" alias=".service_locator.DYuyVBM"/>
+    <service id=".service_locator.fohxXvv" alias=".service_locator.2_NzmnZ"/>
+    <service id=".service_locator.QvY3ZRk" alias=".service_locator..7s9Fb7"/>
+    <service id=".service_locator.FdNvh.." alias=".service_locator.1dW180q"/>
     <service id=".service_locator.e3w8kq6" alias=".service_locator.5FwXUg4"/>
     <service id=".service_locator.23LAUDK" alias=".service_locator.MipyDka"/>
     <service id=".service_locator.vC7ZDUk" alias=".service_locator.nGsEDpj"/>

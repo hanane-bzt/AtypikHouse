@@ -40,6 +40,14 @@
                           <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}" href="{{ path('admin.habitat.index') }}">Habitats</a>
                            </li>
+
+                           <li class="nav-item">
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'ville.' %}active{% endif %}" href="{{ path('admin.city.index') }}">Villes</a>
+                           </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'pays.' %}active{% endif %}" href="{{ path('admin.city.index') }}">Pays</a>
+                           </li>
                       </ul>
                 </div>
         </div>
