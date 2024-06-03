@@ -87,7 +87,7 @@ class Habitat
     private ?Category $category = null;
 
     
-    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
+    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
     private ?Ville $ville = null;
 
     public function getId(): ?int

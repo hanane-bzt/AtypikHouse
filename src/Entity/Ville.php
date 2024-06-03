@@ -39,9 +39,10 @@ class Ville
     private ?\DateTimeImmutable $updatedAt = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'villes', cascade: ['persist'])]
+    #[ORM\ManyToOne(inversedBy: 'countries', cascade: ['persist'])]
     private ?Pays $pays = null;
 
+    
     public function getId(): ?int
     {
         return $this->id;

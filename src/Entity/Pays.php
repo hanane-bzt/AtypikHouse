@@ -35,14 +35,18 @@ class Pays
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(targetEntity: Ville::class, mappedBy: 'ville', cascade: ['remove'])]
-    private Collection $villes;
+    // #[ORM\OneToMany(targetEntity: Pays::class, mappedBy: 'ville', cascade: ['remove'])]
+    // private Collection $villes;
+
+    #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Ville::class, cascade: ['remove'])]
+    private Collection $countries;
+
 
     public function __construct()
     {
-        $this->villes = new ArrayCollection();
+        $this->countries = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -101,13 +105,13 @@ class Pays
      */
     public function getVilles(): Collection
     {
-        return $this->villes;
+        return $this->countries;
     }
 
     public function addVille(Ville $ville): static
     {
-        if (!$this->villes->contains($ville)) {
-            $this->villes->add($ville);
+        if (!$this->countries->contains($ville)) {
+            $this->countries->add($ville);
             $ville->setPays($this);
         }
 
@@ -116,7 +120,7 @@ class Pays
 
     public function removeVille(Ville $ville): static
     {
-        if ($this->villes->removeElement($ville)) {
+        if ($this->countries->removeElement($ville)) {
             // set the owning side to null (unless already changed)
             if ($ville->getPays() === $this) {
                 $ville->setPays(null);
