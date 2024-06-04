@@ -34,7 +34,11 @@
                           <a class="nav-link {% if app.request.attributes.get('_route') == 'admin.category.index' %}active{% endif %}" href="{{ path('admin.category.index') }}">Catégories</a>
                          </li>
                           <li class="nav-item">
-                          <a class="nav-link {% if app.request.attributes.get('_route') == 'admin.address.index' %}active{% endif %}" href="{{ path('admin.address.index') }}">Adresses</a>
+                          <a class="nav-link {% if app.request.attributes.get('_route') == 'admin.city.index' %}active{% endif %}" href="{{ path('admin.city.index') }}">Villes</a>
+                         </li>
+
+                         <li class="nav-item">
+                          <a class="nav-link {% if app.request.attributes.get('_route') == 'admin.country.index' %}active{% endif %}" href="{{ path('admin.country.index') }}">Pays</a>
                          </li>
                       </ul>
                 </div>

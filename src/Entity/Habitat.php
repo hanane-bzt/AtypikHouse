@@ -28,10 +28,31 @@ class Habitat
     #[Assert\Length(min: 5)]
     #[BanWord]
     private string $title = '';
+<<<<<<< HEAD
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Positive()]
     private string $capacity = '';
+=======
+    
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10)]
+    private string $address = '';
+    
+    #[ORM\Column(length: 10)]
+    #[Assert\Length(max: 10)]
+    #[Assert\Type(type: 'numeric', message: 'Le code postal doit être un nombre')]
+    #[Assert\NotBlank(message: 'Le code postal ne peut pas être vide')]
+    #[Assert\Positive(message: 'Le code postal doit être un nombre positif')]
+    #[BanWord]
+    private string $codePostal = '';
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
+    #[Assert\NotBlank(message: 'La capacité ne peut pas être vide')]
+    #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
+    private ?string $capacity = '';
+>>>>>>> master
 
     #[ORM\Column]
     #[Assert\NotBlank()]
@@ -47,7 +68,11 @@ class Habitat
     private ?bool $en_vente = null;
 
     #[ORM\Column(type: Types::TEXT)]
+<<<<<<< HEAD
     #[Assert\Length(min: 5)]
+=======
+    #[Assert\Length(min: 15)]
+>>>>>>> master
     private string $content = '';
 
     #[ORM\Column]
@@ -72,6 +97,13 @@ class Habitat
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
 
+<<<<<<< HEAD
+=======
+    
+    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
+    private ?Ville $ville = null;
+
+>>>>>>> master
     public function getId(): ?int
     {
         return $this->id;
@@ -149,6 +181,33 @@ class Habitat
         return $this;
     }
 
+<<<<<<< HEAD
+=======
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCodePostal(): string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(string $codePostal): static
+    {
+        $this->codePostal=$codePostal;
+
+        return $this;
+    }
+
+>>>>>>> master
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -222,6 +281,7 @@ class Habitat
         return $this;
     }
 
+<<<<<<< HEAD
     // public function getAddress(): ?Address
     // {
     //     return $this->address;
@@ -233,4 +293,17 @@ class Habitat
 
     //     return $this;
     // }
+=======
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+>>>>>>> master
 }

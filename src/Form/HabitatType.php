@@ -4,6 +4,10 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Habitat;
+<<<<<<< HEAD
+=======
+use App\Entity\Ville;
+>>>>>>> master
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -32,6 +36,7 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 'label' => 'Titre',
                 'empty_data' => ''
             ])
+<<<<<<< HEAD
             ->add('slug', TextType::class,
             [ 'required' => false,
             ])
@@ -48,6 +53,56 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 },
                 // 'expanded' => true
             ])
+=======
+
+            ->add('address', TextareaType::class, [
+                'label' => 'Adresse',
+                'empty_data' => ''
+            ])
+
+            
+            ->add('code_postal', TextType::class, [
+                'label' => 'Code postal',
+                'empty_data' => ''
+            ])
+
+
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => function ($ville) {
+                    return $ville->getName() . ' (' . $ville->getPays() . ')';
+                },
+                // 'expanded' => true
+            ])
+
+            ->add('slug', TextType::class,
+            [ 'required' => false,
+            ])
+
+            ->add('category', EntityType::class, [ 
+                'class' => Category::class,
+                'choice_label' => 'name',
+            // 'expanded' => true
+            ])
+
+            // ->add('category', EntityType::class, [
+            //     'class' => Category::class,
+            //     'choice_label' => function ($category) {
+            //         return $category->getName() . ' (' . $category->getSlug() . ')';
+            //     },
+            //     // 'expanded' => true
+            // ])
+
+            
+
+            // ->add('ville', EntityType::class, [ 
+            //     'class' => Ville::class,
+            //     'choice_label' => 'name',
+            // // 'expanded' => true
+            // ])
+            
+            
+>>>>>>> master
             
             ->add('content', TextareaType::class, [
                 'empty_data' => ''
@@ -56,7 +111,11 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 'empty_data' => ''
             ])
             ->add('nombreDeCouchage')
+<<<<<<< HEAD
             ->add('price', TextareaType::class, [
+=======
+            ->add('price', TextType::class, [
+>>>>>>> master
                 'empty_data' => ''
             ])
             ->add('en_vente')
