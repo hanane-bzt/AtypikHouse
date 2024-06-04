@@ -9,7 +9,6 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
 /vendor/
 ###< symfony/framework-bundle ###
 
@@ -30,8 +29,6 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/cache
-/var/log
 /vendor/
 ###> symfony/framework-bundle ###
 /.env.local
@@ -39,8 +36,6 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/cache/*
-/var/log/*
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
