@@ -16,18 +16,18 @@ class Pays extends \App\Entity\Pays implements \Doctrine\ORM\Proxy\InternalProxy
     }
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
+        "\0".parent::class."\0".'countries' => [parent::class, 'countries', null],
         "\0".parent::class."\0".'createdAt' => [parent::class, 'createdAt', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
         "\0".parent::class."\0".'name' => [parent::class, 'name', null],
         "\0".parent::class."\0".'slug' => [parent::class, 'slug', null],
         "\0".parent::class."\0".'updatedAt' => [parent::class, 'updatedAt', null],
-        "\0".parent::class."\0".'villes' => [parent::class, 'villes', null],
+        'countries' => [parent::class, 'countries', null],
         'createdAt' => [parent::class, 'createdAt', null],
         'id' => [parent::class, 'id', null],
         'name' => [parent::class, 'name', null],
         'slug' => [parent::class, 'slug', null],
         'updatedAt' => [parent::class, 'updatedAt', null],
-        'villes' => [parent::class, 'villes', null],
     ];
 
     public function __isInitialized(): bool
