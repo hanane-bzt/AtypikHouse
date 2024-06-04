@@ -2,22 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\HabitatRepository;
-use App\Validator\BanWord;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\CountryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
-
-#[ORM\Entity(repositoryClass: HabitatRepository::class)]
-#[UniqueEntity('title')]
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
+#[UniqueEntity('name')]
 #[UniqueEntity('slug')]
-#[Vich\Uploadable()]
-class Habitat
+class Pays
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,44 +21,13 @@ class Habitat
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
-    #[BanWord]
-    private string $title = '';
-    
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 10)]
-    private string $address = '';
-    
-    #[ORM\Column(length: 10)]
-    #[Assert\Length(max: 10)]
-    #[Assert\Type(type: 'numeric', message: 'Le code postal doit être un nombre')]
-    #[Assert\NotBlank(message: 'Le code postal ne peut pas être vide')]
-    #[Assert\Positive(message: 'Le code postal doit être un nombre positif')]
-    #[BanWord]
-    private string $codePostal = '';
+    #[Assert\Length(min: 3)]
+    private string $name = '';
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
-    #[Assert\NotBlank(message: 'La capacité ne peut pas être vide')]
-    #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
-    private ?string $capacity = '';
-
-    #[ORM\Column]
-    #[Assert\NotBlank()]
-    #[Assert\Positive()]
-    private ?int $nombreDeCouchage = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    #[Assert\Positive()]
-    #[Assert\LessThan(value: 2000)]
-    private string $price = '';
-
-    #[ORM\Column]
-    private ?bool $en_vente = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 15)]
-    private string $content = '';
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 3)]
+    #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
+     private string $slug = '';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -70,123 +35,43 @@ class Habitat
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
-    #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
-    private string $slug = '';
+    // #[ORM\OneToMany(targetEntity: Pays::class, mappedBy: 'ville', cascade: ['remove'])]
+    // private Collection $villes;
 
-    #[ORM\Column(length: 255, nullable:true)]
-    private ?string $file = null;
-
-    #[Vich\UploadableField(mapping: 'habitats', fileNameProperty: 'file' )]
-    #[Assert\Image()]
-    private ?File $thumbnailFile = null;
+    #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Ville::class, cascade: ['remove'])]
+    private Collection $countries;
 
 
-    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
-    private ?Category $category = null;
-
+    public function __construct()
+    {
+        $this->countries = new ArrayCollection();
+    }
     
-    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
-    private ?Ville $ville = null;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getName(): string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $titre): static
+    public function setName(string $name): static
     {
-        $this->title = $titre;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getCapacity(): string
+    public function getSlug(): string
     {
-        return $this->capacity;
+        return $this->slug;
     }
 
-    public function setCapacity(string $capacity): static
+    public function setSlug(string $slug): static
     {
-        $this->capacity = $capacity;
-
-        return $this;
-    }
-
-    public function getNombreDeCouchage(): int
-    {
-        return $this->nombreDeCouchage;
-    }
-
-    public function setNombreDeCouchage(int $nombreDeCouchage): static
-    {
-        $this->nombreDeCouchage = $nombreDeCouchage;
-
-        return $this;
-    }
-
-    public function getPrice(): string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function isEnVente(): ?bool
-    {
-        return $this->en_vente;
-    }
-
-    public function setEnVente(bool $en_vente): static
-    {
-        $this->en_vente = $en_vente;
-
-        return $this;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): static
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    public function getAddress(): string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): static
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getCodePostal(): string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(string $codePostal): static
-    {
-        $this->codePostal=$codePostal;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -215,64 +100,38 @@ class Habitat
         return $this;
     }
 
-    public function getSlug(): string
+    /**
+     * @return Collection<int, Habitat>
+     */
+    public function getVilles(): Collection
     {
-        return $this->slug;
+        return $this->countries;
     }
 
-    public function setSlug(string $slug): static
+    public function addVille(Ville $ville): static
     {
-        $this->slug = $slug;
+        if (!$this->countries->contains($ville)) {
+            $this->countries->add($ville);
+            $ville->setPays($this);
+        }
 
         return $this;
     }
 
-    public function getFile(): ?string
+    public function removeVille(Ville $ville): static
     {
-        return $this->file;
-    }
-
-    public function setFile(?string $file): static
-    {
-        $this->file = $file;
+        if ($this->countries->removeElement($ville)) {
+            // set the owning side to null (unless already changed)
+            if ($ville->getPays() === $this) {
+                $ville->setPays(null);
+            }
+        }
 
         return $this;
     }
 
-    
-    public function getThumbnailFile(): ?File
+    public function __toString(): string
     {
-        return $this->thumbnailFile;
-    }
-
-    public function setThumbnailFile(?File $thumbnailFile): static
-    {
-        $this->thumbnailFile = $thumbnailFile;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getVille(): ?Ville
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?Ville $ville): static
-    {
-        $this->ville = $ville;
-
-        return $this;
+        return $this->name;
     }
 }

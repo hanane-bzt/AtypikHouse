@@ -125,6 +125,17 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.city.index");
         yield "\">Villes</a>
                            </li>
+
+                            <li class=\"nav-item\">
+                                <a class=\"nav-link ";
+        // line 49
+        if ((is_string($__internal_compile_4 = CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 49, $this->source); })()), "request", [], "any", false, false, false, 49), "attributes", [], "any", false, false, false, 49), "get", ["_route"], "method", false, false, false, 49)) && is_string($__internal_compile_5 = "pays.") && str_starts_with($__internal_compile_4, $__internal_compile_5))) {
+            yield "active";
+        }
+        yield "\" href=\"";
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin.city.index");
+        yield "\">Pays</a>
+                           </li>
                       </ul>
                 </div>
         </div>
@@ -132,14 +143,14 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
 
         <div  class=\"container my-4  align-items-center\" style=\"max-width: 900px;\">
             ";
-        // line 53
-        yield from         $this->loadTemplate("partials/flash.html.twig", "base.html.twig", 53)->unwrap()->yield($context);
-        // line 54
+        // line 57
+        yield from         $this->loadTemplate("partials/flash.html.twig", "base.html.twig", 57)->unwrap()->yield($context);
+        // line 58
         yield "            
             ";
-        // line 55
+        // line 59
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 56
+        // line 60
         yield "
         </div>
 
@@ -240,7 +251,7 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
         return; yield '';
     }
 
-    // line 55
+    // line 59
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -280,7 +291,7 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
      */
     public function getDebugInfo()
     {
-        return array (  244 => 55,  224 => 18,  213 => 19,  210 => 18,  200 => 17,  189 => 15,  179 => 14,  159 => 5,  143 => 56,  141 => 55,  138 => 54,  136 => 53,  121 => 45,  110 => 41,  97 => 35,  85 => 26,  77 => 20,  75 => 17,  72 => 16,  70 => 14,  65 => 12,  55 => 5,  49 => 1,);
+        return array (  255 => 59,  235 => 18,  224 => 19,  221 => 18,  211 => 17,  200 => 15,  190 => 14,  170 => 5,  154 => 60,  152 => 59,  149 => 58,  147 => 57,  132 => 49,  121 => 45,  110 => 41,  97 => 35,  85 => 26,  77 => 20,  75 => 17,  72 => 16,  70 => 14,  65 => 12,  55 => 5,  49 => 1,);
     }
 
     public function getSourceContext()
@@ -330,6 +341,10 @@ class __TwigTemplate_4ad422c06c4e1344718a061c567e71db extends Template
 
                            <li class=\"nav-item\">
                                 <a class=\"nav-link {% if app.request.attributes.get('_route') starts with 'ville.' %}active{% endif %}\" href=\"{{ path('admin.city.index') }}\">Villes</a>
+                           </li>
+
+                            <li class=\"nav-item\">
+                                <a class=\"nav-link {% if app.request.attributes.get('_route') starts with 'pays.' %}active{% endif %}\" href=\"{{ path('admin.city.index') }}\">Pays</a>
                            </li>
                       </ul>
                 </div>
