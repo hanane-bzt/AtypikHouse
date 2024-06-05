@@ -32,7 +32,7 @@ class CityController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($city);
             $em->flush();
-            $this->addFlash('success', "La catégorie a bien été  créée");
+            $this->addFlash('success', "La ville a bien été  créée");
             return $this->redirectToRoute('admin.city.index');
           
         }
@@ -50,7 +50,7 @@ class CityController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $this->addFlash('success', "La catégorie a bien été modifiée");
+            $this->addFlash('success', "La ville a bien été modifiée");
             return $this->redirectToRoute('admin.city.index');
          
         }
@@ -67,7 +67,7 @@ class CityController extends AbstractController {
     {
         $em->remove($city);
         $em->flush();
-        $this->addFlash('success', "La catégorie bien été  suppriméée");
+        $this->addFlash('success', "La ville bien été  suppriméée");
         return $this->redirectToRoute('admin.city.index');
         // if ($request->isMethod('DELETE')) {
         //     $em->remove($category);

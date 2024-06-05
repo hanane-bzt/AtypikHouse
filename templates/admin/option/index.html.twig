@@ -1,0 +1,33 @@
+{% extends 'admin/admin.html.twig' %}
+ 
+{% block title "Options" %}
+
+
+{% block body %}
+ <p> <a class="btn btn-primary btn-sm" href="{{ url('admin.option.create') }}">Ajouter une option</a></p>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Nom</th>
+    <th style="width: 200px">Actions</th>
+  </tr>
+</thead>
+<tbody>
+{% for option in options %}
+  <tr>
+    <td> <a href="{{ url('admin.option.edit', {id: option.id}) }}">{{option.name}}</a></td>
+    <td>
+    <div class="d-flex gap-1">
+    <a class="btn btn-primary btn-sm" href="{{ url('admin.option.edit', {id: option.id}) }}">Editer</a>
+    <form action="{{ path('admin.option.delete', {id: option.id}) }}" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+    </form>
+    </div>
+    </td>
+  </tr>
+   {% endfor %}
+<tbody>
+</table>
+{% endblock %}

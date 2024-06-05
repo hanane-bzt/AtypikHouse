@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Habitat;
 use App\Entity\Ville;
+use App\Entity\Option;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -63,6 +64,14 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 'choice_label' => 'name',
             // 'expanded' => true
             ])
+
+            ->add('options', EntityType::class, [
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            
 
             // ->add('category', EntityType::class, [
             //     'class' => Category::class,
