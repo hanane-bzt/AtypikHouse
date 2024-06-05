@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route("/admin/habitats", name: 'admin.habitat.')]
-#[IsGranted('ROLE_ADMIN')]
+// #[IsGranted('ROLE_ADMIN')]
 class HabitaController extends AbstractController
 {
     #[Route('/', name: 'index')]

@@ -35,17 +35,17 @@ class Pays
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    // #[ORM\OneToMany(targetEntity: Pays::class, mappedBy: 'ville', cascade: ['remove'])]
-    // private Collection $villes;
+
 
     #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Ville::class, cascade: ['remove'])]
     private Collection $countries;
 
+     public function __construct()
+     {
+         $this->countries = new ArrayCollection();
+     }
+     /** */
 
-    public function __construct()
-    {
-        $this->countries = new ArrayCollection();
-    }
     
     public function getId(): ?int
     {
@@ -101,7 +101,7 @@ class Pays
     }
 
     /**
-     * @return Collection<int, Habitat>
+     * @return Collection<int, Ville>
      */
     public function getVilles(): Collection
     {

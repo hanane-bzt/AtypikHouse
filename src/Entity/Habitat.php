@@ -85,8 +85,15 @@ class Habitat
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
 
+    // #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]    
+    // private ?Ville $ville = null;
+
     #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
-    private ?Ville $ville = null;
+// /**
+//  * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", onDelete="SET NULL")
+//  */
+private ?Ville $ville = null;
+
 
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
     private Collection $options;

@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 #[Route("/admin/city", name: 'admin.city.')]
-#[IsGranted('ROLE_ADMIN')]
+// #[IsGranted('ROLE_ADMIN')]
 class CityController extends AbstractController {
 
     
