@@ -6,12 +6,12 @@ use App\Repository\HabitatRepository;
 use App\Validator\BanWord;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
-
 
 #[ORM\Entity(repositoryClass: HabitatRepository::class)]
 #[UniqueEntity('title')]
@@ -34,13 +34,18 @@ class Habitat
     private string $address = '';
     
     #[ORM\Column(length: 10)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(max: 10)]
+    #[Assert\Type(type: 'numeric', message: 'Le code postal doit être un nombre')]
+    #[Assert\NotBlank(message: 'Le code postal ne peut pas être vide')]
+    #[Assert\Positive(message: 'Le code postal doit être un nombre positif')]
     #[BanWord]
     private string $codePostal = '';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    #[Assert\Positive()]
-    private string $capacity = '';
+    #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
+    #[Assert\NotBlank(message: 'La capacité ne peut pas être vide')]
+    #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
+    private ?string $capacity = '';
 
     #[ORM\Column]
     #[Assert\NotBlank()]
@@ -70,20 +75,35 @@ class Habitat
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
     private string $slug = '';
 
-    #[ORM\Column(length: 255, nullable:true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
-    #[Vich\UploadableField(mapping: 'habitats', fileNameProperty: 'file' )]
+    #[Vich\UploadableField(mapping: 'habitats', fileNameProperty: 'file')]
     #[Assert\Image()]
     private ?File $thumbnailFile = null;
-
 
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
 
-    
-    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
-    private ?Ville $ville = null;
+    // #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]    
+    // private ?Ville $ville = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
+// /**
+//  * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", onDelete="SET NULL")
+//  */
+private ?Ville $ville = null;
+
+
+    #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
+    private Collection $options;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -95,14 +115,14 @@ class Habitat
         return $this->title;
     }
 
-    public function setTitle(string $titre): static
+    public function setTitle(string $title): static
     {
-        $this->title = $titre;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getCapacity(): string
+    public function getCapacity(): ?string
     {
         return $this->capacity;
     }
@@ -114,7 +134,7 @@ class Habitat
         return $this;
     }
 
-    public function getNombreDeCouchage(): int
+    public function getNombreDeCouchage(): ?int
     {
         return $this->nombreDeCouchage;
     }
@@ -174,14 +194,14 @@ class Habitat
         return $this;
     }
 
-    public function getPostalCode(): string
+    public function getCodePostal(): string
     {
         return $this->codePostal;
     }
 
-    public function setPostalCode(string $codePostal): static
+    public function setCodePostal(string $codePostal): static
     {
-        $this->title = $codePostal;
+        $this->codePostal = $codePostal;
 
         return $this;
     }
@@ -234,7 +254,6 @@ class Habitat
         return $this;
     }
 
-    
     public function getThumbnailFile(): ?File
     {
         return $this->thumbnailFile;
@@ -267,6 +286,30 @@ class Habitat
     public function setVille(?Ville $ville): static
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Option>
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options->add($option);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        $this->options->removeElement($option);
 
         return $this;
     }

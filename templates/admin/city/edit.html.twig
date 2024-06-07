@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title "Modifier la ville : " ~ city.name  %}
+
+
+{% block body %}
+
+   <h1>Modifier la ville : {{city.name }}</h1>
+
+  
+    {{ form_start(form) }}
+<div class="row">
+    <div class="col">{{ form_row(form.name) }}</div>
+    <div class="col">{{ form_row(form.slug) }}</div> 
+</div>
+{{ form_rest(form) }}
+
+ 
+
+ {% endblock %}
+ 

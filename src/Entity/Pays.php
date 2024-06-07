@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\PaysRepository;
+use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
-#[ORM\Entity(repositoryClass: PaysRepository::class)]
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
 #[UniqueEntity('name')]
 #[UniqueEntity('slug')]
 class Pays
@@ -21,11 +21,11 @@ class Pays
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 3)]
     private string $name = '';
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 3)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
      private string $slug = '';
 
@@ -35,14 +35,18 @@ class Pays
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(targetEntity: Ville::class, mappedBy: 'ville', cascade: ['remove'])]
-    private Collection $villes;
 
-    public function __construct()
-    {
-        $this->villes = new ArrayCollection();
-    }
 
+    #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Ville::class, cascade: ['remove'])]
+    private Collection $countries;
+
+     public function __construct()
+     {
+         $this->countries = new ArrayCollection();
+     }
+     /** */
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -97,17 +101,17 @@ class Pays
     }
 
     /**
-     * @return Collection<int, Habitat>
+     * @return Collection<int, Ville>
      */
     public function getVilles(): Collection
     {
-        return $this->villes;
+        return $this->countries;
     }
 
     public function addVille(Ville $ville): static
     {
-        if (!$this->villes->contains($ville)) {
-            $this->villes->add($ville);
+        if (!$this->countries->contains($ville)) {
+            $this->countries->add($ville);
             $ville->setPays($this);
         }
 
@@ -116,7 +120,7 @@ class Pays
 
     public function removeVille(Ville $ville): static
     {
-        if ($this->villes->removeElement($ville)) {
+        if ($this->countries->removeElement($ville)) {
             // set the owning side to null (unless already changed)
             if ($ville->getPays() === $this) {
                 $ville->setPays(null);
@@ -124,5 +128,10 @@ class Pays
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

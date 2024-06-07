@@ -2,19 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\VilleRepository;
+use App\Repository\CityRepository;
 use App\Validator\BanWord;
 use Doctrine\DBAL\Types\Types;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: VilleRepository::class)]
+#[ORM\Entity(repositoryClass: CityRepository::class)]
 #[UniqueEntity('name')]
 #[UniqueEntity('slug')]
-#[Vich\Uploadable()]
+#[Vich\Uploadable()] 
 class Ville
 {
     
@@ -24,11 +28,11 @@ class Ville
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 10)]
+    #[Assert\Length(min: 3)]
     private string $name = '';
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
+    #[Assert\Length(min: 3)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
      private string $slug = '';
 
@@ -38,17 +42,21 @@ class Ville
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(length: 255, nullable:true)]
-    private ?string $file = null;
 
-    #[Vich\UploadableField(mapping: 'villes', fileNameProperty: 'file' )]
-    #[Assert\Image()]
-    private ?File $thumbnailFile = null;
-
-
-    #[ORM\ManyToOne(inversedBy: 'villes', cascade: ['persist'])]
+    #[ORM\ManyToOne(inversedBy: 'countries',  cascade: ['remove'])]
     private ?Pays $pays = null;
 
+    /** */
+    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'ville', cascade: ['remove'])]
+    private Collection $habitats;
+
+    public function __construct()
+    {
+        $this->habitats = new ArrayCollection();
+    }
+    /** */
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -103,30 +111,6 @@ class Ville
         return $this;
     }
 
-    public function getFile(): ?string
-    {
-        return $this->file;
-    }
-
-    public function setFile(?string $file): static
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    
-    public function getThumbnailFile(): ?File
-    {
-        return $this->thumbnailFile;
-    }
-
-    public function setThumbnailFile(?File $thumbnailFile): static
-    {
-        $this->thumbnailFile = $thumbnailFile;
-
-        return $this;
-    }
 
     public function getPays(): ?Pays
     {
@@ -140,15 +124,39 @@ class Ville
         return $this;
     }
 
-    // public function getAddress(): ?Address
-    // {
-    //     return $this->address;
-    // }
 
-    // public function setAddress(?Address $address): static
-    // {
-    //     $this->address = $address;
+    /** */
+    
+    /**
+     * @return Collection<int, Habitat>
+     */
+    public function getHabitats(): Collection
+    {
+        return $this->habitats;
+    }
 
-    //     return $this;
-    // }
+    public function addHabitat(Habitat $habitat): static
+    {
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats->add($habitat);
+            $habitat->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitat(Habitat $habitat): static
+    {
+        if ($this->habitats->removeElement($habitat)) {
+            // set the owning side to null (unless already changed)
+            if ($habitat->getVille() === $this) {
+                $habitat->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
+        /** */
+
 }
