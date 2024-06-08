@@ -31,30 +31,29 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 'empty_data' => ''
             ])
 
-            
+
+            ->add('latitude', TextType::class, [
+                'label' => 'Latitude',
+                'required' => "",
+            ])
+            ->add('longitude', TextType::class, [
+                'label' => 'Longitude',
+                'required' => "",
+               
+            ])
             ->add('pays', EntityType::class, [
                 'class' => Pays::class,
                 'choice_label' => function ($country) {
-                    return $country->getName() . ' (' . $country->getSlug() . ')';
+                    return $country->getName() . ' (' . $country->getCode() . ')';
                 },
-                // 'expanded' => true
+                'label' => 'Pays',
+                'required' => true,
             ])
-            // ->add('habitats', EntityType::class, [
-            //     'class' => Habitat::class,
-            //     'choice_label' => 'title',
-            //     'multiple' => true,
-            //  // 'expanded' => true,
-            //     'by_reference' => false
-            // ])
+
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'
             ])
-            // ->add('createdAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('updatedAt', null, [
-            //     'widget' => 'single_text',
-            // ])
+           
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->Listenerfactory->autoSlug('name'))
             ->addEventListener(FormEvents::POST_SUBMIT, $this->Listenerfactory->timestamps())
         ;

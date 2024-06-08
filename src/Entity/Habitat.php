@@ -85,8 +85,8 @@ class Habitat
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
 
-    // #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]    
-    // private ?Ville $ville = null;
+    #[ORM\ManyToOne(inversedBy: 'options', cascade: ['persist'])]    
+    private ?Option $option = null;
 
     #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
 // /**
@@ -274,6 +274,18 @@ private ?Ville $ville = null;
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getOption(): ?Option
+    {
+        return $this->option;
+    }
+
+    public function setOption(?Option $option): static
+    {
+        $this->option = $option;
 
         return $this;
     }

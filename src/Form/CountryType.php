@@ -25,7 +25,7 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
             ->add('name', TextType::class, [
                 'empty_data' => ''
             ])
-            ->add ('slug', TextType::class, [
+            ->add ('code', TextType::class, [
                 'required' => false,
                 'empty_data' => ''
             ])
@@ -45,7 +45,7 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
             // ->add('updatedAt', null, [
             //     'widget' => 'single_text',
             // ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, $this->Listenerfactory->autoSlug('name'))
+            // ->addEventListener(FormEvents::PRE_SUBMIT, $this->Listenerfactory->autoSlug('name'))
             ->addEventListener(FormEvents::POST_SUBMIT, $this->Listenerfactory->timestamps())
         ;
     }

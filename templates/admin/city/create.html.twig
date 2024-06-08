@@ -10,7 +10,18 @@
 <div class="row">
     <div class="col">{{ form_row(form.name) }}</div>
     <div class="col">{{ form_row(form.slug) }}</div> 
+    
 </div>
+
+<div class="row">
+
+<div class="col">{{ form_row(form.longitude) }}</div>
+<div class="col">{{ form_row(form.latitude) }}</div>
+
+
+</div>
+
+
 {{ form_rest(form) }}   
  {% endblock %}
  
