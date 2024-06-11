@@ -1,3 +1,29 @@
+# Upgrade to 3.2
+
+## Deprecate the `NotSupported` exception
+
+The class `Doctrine\ORM\Exception\NotSupported` is deprecated without replacement.
+
+## Deprecate remaining `Serializable` implementation
+
+Relying on `SequenceGenerator` implementing the `Serializable` is deprecated
+because that interface won't be implemented in ORM 4 anymore.
+
+The following methods are deprecated:
+
+* `SequenceGenerator::serialize()`
+* `SequenceGenerator::unserialize()`
+
+## `orm:schema-tool:update` option `--complete` is deprecated
+
+That option behaves as a no-op, and is deprecated. It will be removed in 4.0.
+
+## Deprecate properties `$indexes` and `$uniqueConstraints` of `Doctrine\ORM\Mapping\Table`
+
+The properties `$indexes` and `$uniqueConstraints` have been deprecated since they had no effect at all.
+The preferred way of defining indices and unique constraints is by
+using the `\Doctrine\ORM\Mapping\UniqueConstraint` and `\Doctrine\ORM\Mapping\Index` attributes.
+
 # Upgrade to 3.1
 
 ## Deprecate `Doctrine\ORM\Mapping\ReflectionEnumProperty`

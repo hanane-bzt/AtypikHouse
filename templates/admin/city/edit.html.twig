@@ -7,15 +7,23 @@
 
    <h1>Modifier la ville : {{city.name }}</h1>
 
-  
-    {{ form_start(form) }}
+  {{ form_start(form) }}
 <div class="row">
     <div class="col">{{ form_row(form.name) }}</div>
     <div class="col">{{ form_row(form.slug) }}</div> 
+    
 </div>
-{{ form_rest(form) }}
 
- 
+<div class="row">
+
+<div class="col">{{ form_row(form.longitude) }}</div>
+<div class="col">{{ form_row(form.latitude) }}</div>
+
+
+</div>
+
+
+{{ form_rest(form) }}    
 
  {% endblock %}
  

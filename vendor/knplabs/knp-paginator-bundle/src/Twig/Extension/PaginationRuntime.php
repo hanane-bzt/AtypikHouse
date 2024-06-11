@@ -37,6 +37,26 @@ final class PaginationRuntime implements RuntimeExtensionInterface
     }
 
     /**
+     * Renders the <link> tags.
+     *
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed, mixed> $pagination
+     * @param array<string, mixed>                                                   $queryParams
+     * @param array<string, mixed>                                                   $viewParams
+     */
+    public function rel_links(
+        Environment $env,
+        SlidingPaginationInterface $pagination,
+        ?string $template = null,
+        ?array $queryParams = [],
+        ?array $viewParams = [],
+    ): string {
+        return $env->render(
+            $template ?: $pagination->getRelLinksTemplate(),
+            $this->processor->render($pagination, $queryParams ?? [], $viewParams ?? [])
+        );
+    }
+
+    /**
      * Create a sort url for the field named $title and identified by $key which consists of
      * alias and field. $options holds all link parameters like "alt, class" and so on.
      *
@@ -77,7 +97,8 @@ final class PaginationRuntime implements RuntimeExtensionInterface
     public function filter(
         Environment $env,
         SlidingPaginationInterface $pagination,
-        array $fields, ?array $options = [],
+        array $fields,
+        ?array $options = [],
         ?array $params = [],
         ?string $template = null,
     ): string {

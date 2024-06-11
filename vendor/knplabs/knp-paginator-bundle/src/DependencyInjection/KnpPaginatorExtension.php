@@ -8,7 +8,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
 final class KnpPaginatorExtension extends Extension
 {
@@ -36,6 +36,7 @@ final class KnpPaginatorExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $container->setParameter('knp_paginator.template.pagination', $config['template']['pagination']);
+        $container->setParameter('knp_paginator.template.rel_links', $config['template']['rel_links']);
         $container->setParameter('knp_paginator.template.filtration', $config['template']['filtration']);
         $container->setParameter('knp_paginator.template.sortable', $config['template']['sortable']);
         $container->setParameter('knp_paginator.page_range', $config['page_range']);

@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
 #[UniqueEntity('name')]
-#[UniqueEntity('slug')]
+#[UniqueEntity('code')]
 class Pays
 {
     #[ORM\Id]
@@ -24,10 +24,15 @@ class Pays
     #[Assert\Length(min: 3)]
     private string $name = '';
 
+    // #[ORM\Column(length: 255)]
+    // #[Assert\Length(min: 3)]
+    // #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
+    //  private string $slug = '';
+
+    
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 3)]
-    #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
-     private string $slug = '';
+    private string $code = '';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -64,14 +69,14 @@ class Pays
         return $this;
     }
 
-    public function getSlug(): string
+    public function getCode(): string
     {
-        return $this->slug;
+        return $this->code;
     }
 
-    public function setSlug(string $slug): static
+    public function setCode(string $code): static
     {
-        $this->slug = $slug;
+        $this->code = $code;
 
         return $this;
     }

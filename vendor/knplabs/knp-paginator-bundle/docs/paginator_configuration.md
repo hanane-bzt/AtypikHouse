@@ -20,13 +20,14 @@ knp_paginator:
         default_limit: 10              # default number of items per page
     template:
         pagination: @KnpPaginator/Pagination/sliding.html.twig     # sliding pagination controls template
+        rel_links: @KnpPaginator/Pagination/rel_links.html.twig     # <link rel=...> tags template
         sortable: @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
 ```
 
 There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
 
 * `@KnpPaginator/Pagination/sliding.html.twig` (by default)
-* `@KnpPaginator/Pagination/twitter_bootstrap_v5_pagination.html.twig`
+* `@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v6_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
