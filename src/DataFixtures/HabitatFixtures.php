@@ -6,6 +6,7 @@ use App\Entity\Habitat;
 use App\Entity\Category;
 use App\Entity\Ville;
 use App\Entity\Pays;
+use App\Entity\User;
 use App\Entity\Option;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -114,19 +115,19 @@ class HabitatFixtures extends Fixture implements DependentFixtureInterface
         }
 
         // Création de 10 habitats
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             $title = $faker->sentence(6, true);
             $habitat = (new Habitat())
                 ->setTitle($title)
                 ->setAddress($faker->address)
-                ->setCodePostal($faker->postcode)
                 ->setCapacity($faker->randomNumber(3))
-                ->setNombreDeCouchage($faker->numberBetween(1, 10))
+                ->setNombreDeCouchage($faker->numberBetween(1, 9))
                 ->setPrice($faker->randomFloat(2, 100, 1900))
                 ->setEnVente($faker->boolean)
                 ->setContent($faker->paragraphs(10, true))
                 ->setCategory($this->getReference($faker->randomElement($categories)))
-                ->addOption($this->getReference($faker->randomElement($options)))
+                ->setOption($this->getReference($faker->randomElement($options)))
+                ->setUser($this->getReference ('USER'. $faker->numberBetween(1, 9)))
                 ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setVille($this->getReference($faker->randomElement(array_keys($villesMapping))))

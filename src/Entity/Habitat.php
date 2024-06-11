@@ -32,14 +32,6 @@ class Habitat
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10)]
     private string $address = '';
-    
-    #[ORM\Column(length: 10)]
-    #[Assert\Length(max: 10)]
-    #[Assert\Type(type: 'numeric', message: 'Le code postal doit être un nombre')]
-    #[Assert\NotBlank(message: 'Le code postal ne peut pas être vide')]
-    #[Assert\Positive(message: 'Le code postal doit être un nombre positif')]
-    #[BanWord]
-    private string $codePostal = '';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
@@ -85,8 +77,8 @@ class Habitat
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'options', cascade: ['persist'])]    
-    private ?Option $option = null;
+    // #[ORM\ManyToOne(inversedBy: 'options', cascade: ['persist'])]    
+    // private ?Option $option = null;
 
     #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
 // /**
@@ -95,8 +87,16 @@ class Habitat
 private ?Ville $ville = null;
 
 
-    #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
+    // #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
+    // private Collection $options;
+
+    #[ORM\ManyToMany(targetEntity: Option::class)]
     private Collection $options;
+    
+
+
+    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -194,18 +194,6 @@ private ?Ville $ville = null;
         return $this;
     }
 
-    public function getCodePostal(): string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(string $codePostal): static
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -278,18 +266,6 @@ private ?Ville $ville = null;
         return $this;
     }
 
-    public function getOption(): ?Option
-    {
-        return $this->option;
-    }
-
-    public function setOption(?Option $option): static
-    {
-        $this->option = $option;
-
-        return $this;
-    }
-
     public function getVille(): ?Ville
     {
         return $this->ville;
@@ -322,6 +298,18 @@ private ?Ville $ville = null;
     public function removeOption(Option $option): self
     {
         $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

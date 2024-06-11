@@ -9,6 +9,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+
+    public const ADMIN = 'ADMIN_USER';
+
     public function __construct(
         private readonly UserPasswordHasherInterface $hasher
     ) {
@@ -23,18 +26,20 @@ class UserFixtures extends Fixture
             ->setIsVerified(true)
             ->setPassword($this->hasher->hashPassword($user, 'admin'))
             ->setApiToken('admin_token');
-
+            $this->addReference(self::ADMIN, $user);
         $manager->persist($user);
-        $manager->flush();
+        // $manager->flush();
 
 
-        for ($i = 1; $i <=10; $i++) {
+        for ($i = 1; $i <=9; $i++) {
+            $user = (new User());
             $user->setRoles ([])
-            ->setEmail("user {$i} @atph.fr")
-            ->setUsername("user {$i}")
+            ->setEmail("user{$i}@atph.fr")
+            ->setUsername("user{$i}")
             ->setIsVerified(true)
             ->setPassword($this->hasher->hashPassword($user, '0000'))
             ->setApiToken("user{$i}");
+            $this->addReference('USER'.$i, $user);
             $manager->persist ($user);
             }
     }
