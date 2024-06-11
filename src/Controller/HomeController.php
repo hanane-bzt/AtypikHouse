@@ -16,7 +16,7 @@ class HomeController extends AbstractController {
 #[Route("/", name: "home")]
 function index (Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher,Security $security): Response {
 
-    $user = new User();
+    $user = new User(); 
    // dd($security->getUser());
    // dd($security->getToken());
 

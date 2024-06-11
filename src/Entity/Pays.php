@@ -31,7 +31,7 @@ class Pays
 
     
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 3)]
+    #[Assert\Length(min: 2)]
     private string $code = '';
 
     #[ORM\Column]

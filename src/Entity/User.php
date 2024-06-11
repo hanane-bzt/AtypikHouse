@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -44,6 +46,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\Column(length: 255)]
     private ?string $api_token = null;
+
+    /**
+     * @var Collection<int, Habitat>
+     */
+    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'user')]
+    private Collection $habitats;
+
+    #[ORM\OneToOne(targetEntity: Profile::class,inversedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Profile $profile = null;
+
+    public function __construct()
+    {
+        $this->habitats = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -163,6 +179,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApiToken(string $api_token): ?static
     {
         $this->api_token = $api_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Habitat>
+     */
+    public function getHabitats(): Collection
+    {
+        return $this->habitats;
+    }
+
+    public function addHabitat(Habitat $habitat): static
+    {
+        if (!$this->habitats->contains($habitat)) {
+            $this->habitats->add($habitat);
+            $habitat->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitat(Habitat $habitat): static
+    {
+        if ($this->habitats->removeElement($habitat)) {
+            // set the owning side to null (unless already changed)
+            if ($habitat->getUser() === $this) {
+                $habitat->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): static
+    {
+        $this->profile = $profile;
 
         return $this;
     }

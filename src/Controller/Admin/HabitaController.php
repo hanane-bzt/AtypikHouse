@@ -66,7 +66,7 @@ class HabitaController extends AbstractController
         //  $filename = $habitat->getId() . '.' . $file->getClientOriginalExtension();
         //  $file->move($this->getParameter('kernel.project_dir') . '/public/habitats/images', $filename);
         //  $habitat->setFile($filename);
-
+ 
          $em->flush();
          $this->addFlash('success', "L' habitat a été bien modifiée");
         return $this->redirectToRoute('admin.habitat.index');
@@ -85,6 +85,8 @@ class HabitaController extends AbstractController
        $form = $this->createForm(HabitatType::class, $habitat);
        $form->handleRequest($request); 
        if($form->isSubmitted() && $form->isValid()) {
+
+        $habitat->setUser($this->getUser()); 
         //$habitat->setCreatedAt(new \DateTimeImmutable());
        // $habitat->setUpdatedAt(new \DateTimeImmutable());
         $em->persist($habitat);

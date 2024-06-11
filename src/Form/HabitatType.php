@@ -40,12 +40,6 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
                 'empty_data' => ''
             ])
 
-            
-            ->add('code_postal', TextType::class, [
-                'label' => 'Code postal',
-                'empty_data' => ''
-            ])
-
 
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
