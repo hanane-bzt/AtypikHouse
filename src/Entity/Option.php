@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: OptionsRepository::class)]
+#[ORM\Table(name: '`option`')]
 #[UniqueEntity('name')]
 #[UniqueEntity('slug')]
 class Option

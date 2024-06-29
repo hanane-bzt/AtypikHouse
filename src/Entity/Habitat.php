@@ -24,6 +24,9 @@ class Habitat
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
+    private Collection $reservations;
+
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[BanWord]
@@ -103,6 +106,8 @@ private ?Ville $ville = null;
         $this->options = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->reservations = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -310,6 +315,35 @@ private ?Ville $ville = null;
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getHabitat() === $this) {
+                $reservation->setHabitat(null);
+            }
+        }
 
         return $this;
     }
