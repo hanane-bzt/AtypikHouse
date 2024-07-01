@@ -149,7 +149,7 @@ class Option
     {
         if (!$this->quantities->contains($quantity)) {
             $this->quantities->add($quantity);
-            $quantity->setCommodite($this);
+            $quantity->setOption($this);
         }
 
         return $this;
@@ -159,8 +159,8 @@ class Option
     {
         if ($this->quantities->removeElement($quantity)) {
             // set the owning side to null (unless already changed)
-            if ($quantity->getCommodite() === $this) {
-                $quantity->setCommodite(null);
+            if ($quantity->getOption() === $this) {
+                $quantity->setOption(null);
             }
         }
 
