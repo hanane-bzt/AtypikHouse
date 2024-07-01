@@ -47,6 +47,7 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         ),
         'S' => 
         array (
+            'Symfony\\WebpackEncoreBundle\\' => 28,
             'Symfony\\UX\\Turbo\\' => 17,
             'Symfony\\UX\\StimulusBundle\\' => 26,
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
@@ -203,6 +204,10 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\WebpackEncoreBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src',
         ),
         'Symfony\\UX\\Turbo\\' => 
         array (
@@ -566,7 +571,7 @@ class ComposerStaticInit2e074b178cf99c894ccdda33ec3f7bde
         ),
         'Doctrine\\Migrations\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/migrations/lib/Doctrine/Migrations',
+            0 => __DIR__ . '/..' . '/doctrine/migrations/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

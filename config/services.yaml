@@ -20,6 +20,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+
+    App\Security\Voter\CategoryVoter:
+        tags:
+            - { name: security.voter }
+        public: false
+
+
      # Inclure les entités dans l'autowiring
     # App\Entity\:
     #     resource: '../src/Entity/'

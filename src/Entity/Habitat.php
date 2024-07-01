@@ -98,11 +98,18 @@ private ?Ville $ville = null;
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, Quantity>
+     */
+    #[ORM\OneToMany(targetEntity: Quantity::class, mappedBy: 'habitat', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $quantities;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->quantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -310,6 +317,36 @@ private ?Ville $ville = null;
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quantity>
+     */
+    public function getQuantities(): Collection
+    {
+        return $this->quantities;
+    }
+
+    public function addQuantity(Quantity $quantity): static
+    {
+        if (!$this->quantities->contains($quantity)) {
+            $this->quantities->add($quantity);
+            $quantity->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantity(Quantity $quantity): static
+    {
+        if ($this->quantities->removeElement($quantity)) {
+            // set the owning side to null (unless already changed)
+            if ($quantity->getHabitat() === $this) {
+                $quantity->setHabitat(null);
+            }
+        }
 
         return $this;
     }

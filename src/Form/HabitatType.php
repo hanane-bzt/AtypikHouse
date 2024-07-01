@@ -6,9 +6,11 @@ use App\Entity\Category;
 use App\Entity\Habitat;
 use App\Entity\Ville;
 use App\Entity\Option;
+use App\Entity\Quantity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -59,12 +61,14 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
             // 'expanded' => true
             ])
 
-            ->add('options', EntityType::class, [
-                'class' => Option::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-            ])
+            
+
+            // ->add('options', EntityType::class, [
+            //     'class' => Option::class,
+            //     'choice_label' => 'name',
+            //     'multiple' => true,
+            //     'expanded' => true,
+            // ])
             
 
             // ->add('category', EntityType::class, [
@@ -104,15 +108,37 @@ public function __construct(private FormListenerFactory $Listenerfactory) {
             // ])
 
             ->add('thumbnailFile', FileType::class)
+
+
+            ->add('quantities', CollectionType::class, [
+                'entry_type' => QuantityType::class,
+                'by_reference' => false,
+                'allow_add' => true,
+                // 'allow_delete' => true,
+                // 'prototype' => true,
+                'entry_options' => ['label' => false],
+                'attr'=> ['data-controller' => 'form-collection',
+]
+                
+            ]) 
             
             ->add('save', SubmitType::class,[
                 'label' => 'Envoyer'
                 ])
+            // ->add('quantities', CollectionType::class, [
+            //         'entry_type' => QuantityType::class,
+            //         'by_reference' => false,
+            //         'allow_add' => true,
+            //         'allow_delete' => true,
+            //         'prototype' => true,
+            //         'entry_options' => ['label' => false],
+            //     ])
+                
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->Listenerfactory->autoSlug('title'))
             ->addEventListener(FormEvents::POST_SUBMIT, $this->Listenerfactory->timestamps())
 
             ;
-    }
+    } 
 
 
     public function configureOptions(OptionsResolver $resolver): void

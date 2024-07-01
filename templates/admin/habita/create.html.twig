@@ -1,43 +1,29 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title "Créer un nouvel habitat" %}
-
+{% block title %}Créer un nouvel habitat{% endblock %}
 
 {% block body %}
-
    <h1>Créer un nouvel habitat</h1>
+   {{ form_start(form) }}
+       {{ form_row(form.title) }}
+       {{ form_row(form.slug) }}
+       {{ form_row(form.address) }}
+       {{ form_row(form.ville) }}
+       {{ form_row(form.category) }}
+       {{ form_row(form.content) }}
+       {{ form_row(form.capacity) }}
+       {{ form_row(form.nombreDeCouchage) }}
+       {{ form_row(form.price) }}
+       {{ form_row(form.en_vente) }}
+       {{ form_row(form.thumbnailFile) }}
 
-   {# {{ form (form) }} #}
+       <div class="quantities">
+           {{ form_label(form.quantities) }}
+           {% for quantityForm in form.quantities %}
+               {{ form_row(quantityForm) }}
+           {% endfor %}
+       </div>
 
- {{ form_start(form) }}
-<div class="row">
-    <div class="col">{{ form_row(form.title) }}</div>
-    <div class="col">{{ form_row(form.slug) }}</div> 
-</div>
-<div class="row">
-
-     <div class="col">{{ form_row(form.address) }}</div>
-    </div>
-<div class="row">
-
-    <div class="col">{{ form_row(form.ville) }}</div>
-    <div class="col">{{ form_row(form.content) }}</div>
-    </div>
-
-    <div class="row">
-
-    <div class="col">{{ form_row(form.category) }}</div>
-    <div class="col">{{ form_row(form.capacity) }}</div>
-    </div>
-
-    <div class="row">
-
-    <div class="col">{{ form_row(form.nombreDeCouchage) }}</div>
-    <div class="col">{{ form_row(form.price) }}</div>
-    </div>
-
-{{ form_rest(form) }}
+       <button type="submit">Envoyer</button>
+   {{ form_end(form) }}
 {% endblock %}
-
-   
- 

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Security\Voter\CategoryVoter;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -18,6 +19,7 @@ class CategoryController extends AbstractController {
 
     
     #[Route(name: 'index')]
+    #[IsGranted(CategoryVoter::LIST)] 
     public function index(CategoryRepository $repository){
         return $this->render('admin/category/index.html.twig', [
             'categories' => $repository->findAll()
@@ -25,6 +27,7 @@ class CategoryController extends AbstractController {
     }
 
     #[Route("/create", name: 'create')]
+    #[IsGranted(CategoryVoter::CREATE)] 
     public function create(Request $request, EntityManagerInterface $em){
         $category = new Category();
         $form = $this->createForm(CategoryType::class,$category);
@@ -44,6 +47,7 @@ class CategoryController extends AbstractController {
     }
 
     #[Route('/{id}', name: 'edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted(CategoryVoter::EDIT, subject:'category')]
     public function edit(Category $category, Request $request, EntityManagerInterface $em){
 
         $form = $this->createForm(CategoryType::class,$category);
@@ -63,18 +67,14 @@ class CategoryController extends AbstractController {
     }
 
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted(CategoryVoter::EDIT, subject:'category')] 
     public function remove(Category $category, EntityManagerInterface $em)
     {
         $em->remove($category);
         $em->flush();
         $this->addFlash('success', "La catégorie bien été  suppriméée");
         return $this->redirectToRoute('admin.category.index');
-        // if ($request->isMethod('DELETE')) {
-        //     $em->remove($category);
-        //     $em->flush();
-        //     $this->addFlash('success', "La catégorie a bien été supprimée");
-        //     return $this->redirectToRoute('admin.category.index');
-        // }
+     
        }
 
     

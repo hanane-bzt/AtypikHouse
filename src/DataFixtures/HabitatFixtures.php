@@ -8,11 +8,13 @@ use App\Entity\Ville;
 use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Option;
+use App\Entity\Quantity;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Flex\Options;
 
 class HabitatFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -45,26 +47,77 @@ class HabitatFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference($categoryName, $category);
         }
 
-        // Création des options
-        $options = [
-            'Piscine', 'Jacuzzi', 'Sauna', 'Hammam', 'Barbecue', 'Jardin', 'Terrasse', 'Balcon',
-            'Vue panoramique', 'Accès plage', 'Accès lac', 'Climatisation', 'Chauffage central', 
-            'Cuisine équipée', 'Wifi', 'Télévision', 'Parking', 'Animaux acceptés', 'Non-fumeur',
-            'Lit king size', 'Cheminée', 'Machine à laver', 'Sèche-linge', 'Lave-vaisselle',
-            'Petit déjeuner inclus', 'Repas inclus', 'Activités guidées', 'Équitation', 'Vélo',
-            'Randonnée', 'Plongée', 'Pêche', 'Observation des oiseaux', 'Escalade', 'Kayak',
-            'Ski', 'Rafting', 'Golf', 'Tennis', 'Fitness', 'Spa', 'Massage', 'Cours de cuisine',
-            'Ateliers artistiques', 'Concierge', 'Location de véhicules', 'Transfert aéroport'
-        ];
+        $units = [
+            "m²",
+            "m³",
+            "Étage",
+            "Niveau",
+            "Mezzanine",
+            "Comble",
+            "Lucarne",
+            "Tourelle",
+            "Pigeonnier",
+            "Colombier",
+            "Moulin",
+            "Maison-tour",
+            "Longère",
+            "Borie",
+            "Cabanon",
+            "Capitelle",
+            "Cabane",
+            "Roulotte",
+            "Yourte",
+            "Tipi",
+            "Igloo",
+            "Troglodyte",
+            "Paillote",
+            "Hutte",
+            "Tente",
+            "Abri",
+            "Bulle",
+            "Dôme",
+            "Tiny house",
+            "Conteneur",
+            "Bateau",
+            "Péniche"
+            ];
 
-        foreach ($options as $optionName) {
-            $option = (new Option())
-                ->setName($optionName)
-                ->setSlug($this->slugger->slug($optionName))
-                ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
-                ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()));
+        // Création des options
+        $options = array_map(fn(string $name)=>(new Option())
+            ->setName($name)
+            ->setSlug (strtolower($this->slugger->slug($name)))
+            ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
+            ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime())), [
+           "Vues panoramiques uniques et cadre exceptionnel",
+"Jardins et espaces extérieurs atypiques (cabanes dans les arbres, maisons sur l'eau, etc.)",
+"Kitchenette et coin repas optimisés dans un petit espace (tiny houses, maisons dômes)",
+"Chambre et salle de bains intégrées (tiny houses, maisons dômes)",
+"Forme aérodynamique et structure solide pour une meilleure résistance aux intempéries (maisons dômes)",
+"Meilleure circulation de l'air et répartition efficace de la chaleur grâce à la forme (maisons dômes)",
+"Superficie réduite et mobilité (tiny houses)",
+"Espaces suroptimisés, mobilier modulaire et autonomie énergétique (tiny houses)",
+"Immersion dans des cultures et architectures originales (péniches, huttes, chalets)",
+"Confort allié à l'originalité (cabanes dans les arbres)",
+"Toile de fond parfaite pour des photos inoubliables (dômes sous les étoiles, granges, gîtes)",
+"Possibilité d'installer une structure insolite dans son jardin comme chambre d'amis ou coin détente",
+"Expérience de vie en pleine nature dans une bulle transparente (maison bulle)",
+"Immersion dans la culture nomade avec une yourte traditionnelle mongole",
+"Vivre sur l'eau dans une péniche aménagée ou un bateau insolite",
+"Découvrir l'architecture troglodyte en vivant dans une maison creusée dans la roche",
+"Séjour insolite dans une roulotte ou tiny house sur roues pour changer de paysage",
+"Dormir dans une maison de verre offrant une vue panoramique à 360°"
+
+
+        ]);
+
+        foreach ($options as $option) {
+            // $option = (new Option())
+            //     ->setName($optionName)
+            //     ->setSlug($this->slugger->slug($optionName))
+            //     ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
+            //     ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()));
             $manager->persist($option);
-            $this->addReference($optionName, $option);
+            // $this->addReference($optionName, $option);
         }
 
         // Création des pays
@@ -126,12 +179,20 @@ class HabitatFixtures extends Fixture implements DependentFixtureInterface
                 ->setEnVente($faker->boolean)
                 ->setContent($faker->paragraphs(10, true))
                 ->setCategory($this->getReference($faker->randomElement($categories)))
-                ->setOption($this->getReference($faker->randomElement($options)))
+                // ->addOption($this->getReference($faker->randomElement($options)))
                 ->setUser($this->getReference ('USER'. $faker->numberBetween(1, 9)))
                 ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setVille($this->getReference($faker->randomElement(array_keys($villesMapping))))
                 ->setSlug($this->slugger->slug($title));
+
+                foreach($faker->randomElements($options, $faker->numberBetween(2, 5)) as $option) {
+                    $habitat->addQuantity((new Quantity())
+                    ->setQuantity($faker->numberBetween(1, 250))
+                    ->setUnit($faker->randomElement($units))
+                    ->setOption($option)
+                    );
+                    }
             $manager->persist($habitat);
         }
 

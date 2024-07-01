@@ -37,11 +37,18 @@ class Option
     #[ORM\ManyToMany(targetEntity: Habitat::class, mappedBy: 'options')]
     private Collection $habitats;
 
+    /**
+     * @var Collection<int, Quantity>
+     */
+    #[ORM\OneToMany(targetEntity: Quantity::class, mappedBy: 'commodite')]
+    private Collection $quantities;
+
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->quantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,5 +135,35 @@ class Option
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Quantity>
+     */
+    public function getQuantities(): Collection
+    {
+        return $this->quantities;
+    }
+
+    public function addQuantity(Quantity $quantity): static
+    {
+        if (!$this->quantities->contains($quantity)) {
+            $this->quantities->add($quantity);
+            $quantity->setCommodite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuantity(Quantity $quantity): static
+    {
+        if ($this->quantities->removeElement($quantity)) {
+            // set the owning side to null (unless already changed)
+            if ($quantity->getCommodite() === $this) {
+                $quantity->setCommodite(null);
+            }
+        }
+
+        return $this;
     }
 }

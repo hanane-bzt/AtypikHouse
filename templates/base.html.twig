@@ -12,10 +12,7 @@
         <link rel="icon" href="{{ asset('favicon.ico') }}">
 
         {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -37,10 +34,11 @@
 
                          </li>
 
-                          <li class="nav-item">
-                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}" href="{{ path('admin.habitat.index') }}">Habitats</a>
-                           </li>
 
+                          <li class="nav-item">
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}" href="{{ path('admin.habitat.index') }}">Inscrire mon Logement</a>
+                           </li>
+                {% if is_granted('ROLE_ADMIN') %}
                            <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'ville.' %}active{% endif %}" href="{{ path('admin.city.index') }}">Villes</a>
                            </li>
@@ -52,6 +50,18 @@
                            <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'option.' %}active{% endif %}" href="{{ path('admin.option.index') }}">Option</a>
                            </li>
+                {% endif %}
+                           <li class="nav-item">
+                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">Inscription</a>
+                          </li>
+
+                          <li class="nav-item">
+                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Se connectez</a>
+                          </li>
+
+                          <li class="nav-item">
+                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">logout</a>
+                          </li>
                       </ul>
                 </div>
         </div>

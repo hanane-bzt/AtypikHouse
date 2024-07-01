@@ -37,6 +37,8 @@
 
 
 {% extends 'admin/admin.html.twig' %}
+{# {% extends 'base.html.twig' %} #}
+
 
 {% block title "Tous les habitats" %}
 
@@ -64,7 +66,7 @@
 
 
 
-<div class="d-flex justify-content-between">
+{# <div class="d-flex justify-content-between">
 
   {% if page > 1 %}
     <a href="{{ path('admin.habitat.index', {page:page - 1})}}" class="btn btn secondary">Page précédente</a>
@@ -74,7 +76,7 @@
     <a href="{{ path('admin.habitat.index', {page:page + 1})}}" class="btn btn secondary">Page suivante</a>
   {% endif %}
 
-</div>
+</div> #}
 
 {# {% endif %} #}
 

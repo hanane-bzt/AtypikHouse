@@ -8,6 +8,8 @@ use App\Security\AtypikAuthenticator;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Routing\Requirement\Requirement;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,4 +86,73 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_register');
     }
+
+
+
+    #[Route('/userlist', name: 'user_list')]
+       public function listUsers(EntityManagerInterface $entityManager): Response
+    {
+        $users = $entityManager->getRepository(User::class)->findAll();
+
+        return $this->render('registration/UserList.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+
+    #[Route('/user/delete/{id}', name: 'user_delete', methods: ['DELETE'])]
+    public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+        foreach ($user->getHabitats() as $habitat) {
+            $entityManager->remove($habitat);
+        }
+    
+        $entityManager->remove($user);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('user_list');
+    }
+
+
+ #[Route('/user/edit/{id}', name: 'user_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+public function edit(User $user, Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(RegistrationFormType::class, $user);
+    $form->handleRequest($request);
+
+    
+    if ($form->isSubmitted() && $form->isValid()) {
+        // encode the plain password
+        $user->setPassword(
+            $userPasswordHasher->hashPassword(
+                $user,
+                $form->get('plainPassword')->getData()
+            )
+        );
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('support@atypikhouse.fr', 'Support'))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        // do anything else you need here, like send an email
+
+        return $security->login($user, AtypikAuthenticator::class, 'main');
+    }
+
+    return $this->render('registration/register.html.twig', [
+        'registrationForm' => $form->createView(),
+    ]);
 }
+
+    
+      
+    }
+

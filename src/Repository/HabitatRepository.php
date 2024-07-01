@@ -2,10 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Habitat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HabitatRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Habitat::class);
     }
@@ -35,6 +38,27 @@ class HabitatRepository extends ServiceEntityRepository
         false);
 
     }
+
+    public function paginateHabitats(int $page, ?int $userId):PaginationInterface
+    {
+
+        $builder=$this->createQueryBuilder('h')->leftJoin('h.category','c')->select('h','c');
+        if($userId){
+            $builder=$builder->andWhere('h.user = :user')
+            ->setParameter('user', $userId);
+        } 
+        return $this->paginator->paginate(
+    $builder,
+    $page,
+    20,
+    [
+        'distinct'=>false,
+        'sortFieldAllowList'=>['h.id','h.title']
+    ]
+    );
+
+    }
+
 
     public function findTotalPrice():int
     {
