@@ -36,7 +36,7 @@
 
 
                           <li class="nav-item">
-                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}" href="{{ path('admin.habitat.index') }}">Inscrire mon Logement</a>
+                                <a class="nav-link {% if app.request.attributes.get('_route') starts with 'habitat.' %}active{% endif %}" href="{{ path('admin.habitat.index') }}">Inscrire-un-Logement</a>
                            </li>
                 {% if is_granted('ROLE_ADMIN') %}
                            <li class="nav-item">
@@ -56,14 +56,14 @@
                           </li>
 
                           <li class="nav-item">
-                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Se connectez</a>
+                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Connexion</a>
                           </li>
 
                           <li class="nav-item">
-                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">logout</a>
+                         <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">Déconnexion</a>
                           </li>
                            <li class="nav-item">
-                                <a class="nav-link {% if app.request.attributes.get('_route') == 'profile' %}active{% endif %}" href="{{ path('profile') }}">Mon profil</a>
+                                <a class="nav-link {% if app.request.attributes.get('_route') == 'profile' %}active{% endif %}" href="{{ path('profile') }}">Mon compte</a>
                            </li>
                       </ul>
                 </div>
