@@ -179,7 +179,11 @@ class HabitatFixtures extends Fixture implements DependentFixtureInterface
                 ->setEnVente($faker->boolean)
                 ->setContent($faker->paragraphs(10, true))
                 ->setCategory($this->getReference($faker->randomElement($categories)))
+<<<<<<< HEAD
                 // ->addOption($this->getReference($faker->randomElement($options)))
+=======
+                ->addOption($this->getReference($faker->randomElement($options)))
+>>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
                 ->setUser($this->getReference ('USER'. $faker->numberBetween(1, 9)))
                 ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))

@@ -44,24 +44,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     
+<<<<<<< HEAD
     #[ORM\Column(length: 255, nullable: false, options: ['default' => ''])]
     private ?string $api_token = '';
     
 
 
+=======
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $api_token = null;
+>>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
 
     /**
      * @var Collection<int, Habitat>
      */
-    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $habitats;
 
     #[ORM\OneToOne(targetEntity: Profile::class,inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Profile $profile = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
+    private Collection $reservations;
+
     public function __construct()
     {
         $this->habitats = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +233,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfile(?Profile $profile): static
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
 
         return $this;
     }

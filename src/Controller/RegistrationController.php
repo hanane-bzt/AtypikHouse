@@ -86,6 +86,7 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_register');
     }
+<<<<<<< HEAD
 
 
 
@@ -156,3 +157,7 @@ public function edit(User $user, Request $request, UserPasswordHasherInterface $
       
     }
 
+=======
+    
+}
+>>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61

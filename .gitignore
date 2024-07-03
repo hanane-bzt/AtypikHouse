@@ -1,51 +1,35 @@
-
-###> symfony/framework-bundle ###
+# Ignorer les fichiers de configuration de l'environnement
 .env
 /.env.local
 /.env.local.php
 /.env.*.local
+<<<<<<< HEAD
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
 /AtypikHouse.code-workspace
 ###< symfony/framework-bundle ###
+=======
+>>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
-###> symfony/framework-bundle ###
-/.env
-/.env.local
-/.env.local.php
-/.env.*.local
+# Ignorer les secrets de production
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/cache
-/var/log
+
+# Ignorer les dépendances installées par Composer
 /vendor/
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/cache/*
-/var/log/*
-###< symfony/framework-bundle ###
+/composer.lock
 
-###> symfony/phpunit-bridge ###
+# Ignorer les fichiers et répertoires de cache et de logs
+/var/
+/var/cache/
+/var/log/
+
+# Ignorer les fichiers spécifiques à PHPUnit
 .phpunit.result.cache
 /phpunit.xml
-###< symfony/phpunit-bridge ###
 
+<<<<<<< HEAD
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
@@ -62,3 +46,7 @@ yarn-error.log
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+=======
+# Ignorer les fichiers spécifiques à l'IDE
+.vscode/
+>>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61

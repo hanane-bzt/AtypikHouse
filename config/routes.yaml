@@ -3,3 +3,17 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+user_list:
+    path: /users
+    controller: App\Controller\UserController::listUsers
+
+user_add:
+    path: /users/add
+    controller: App\Controller\UserController::addUser
+
+user_delete:
+    path: /users/delete/{id}
+    controller: App\Controller\UserController::deleteUser
+    methods: POST
+

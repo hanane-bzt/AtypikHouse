@@ -1,0 +1,22 @@
+{# templates/profile/profile.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <h1>{{ user.username }}</h1>
+
+    <div>
+        <strong>Username:</strong> {{ user.username }}
+    </div>
+    <div>
+        <strong>Email:</strong> {{ user.email }}
+    </div>
+    <div>
+        <strong>Roles:</strong> {{ user.roles | join(', ') }}
+    </div>
+    <div>
+        <strong>Verified:</strong> {{ user.isVerified ? 'Yes' : 'No' }}
+    </div>
+
+{% endblock %}

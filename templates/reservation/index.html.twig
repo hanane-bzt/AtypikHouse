@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reservations</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Habitat</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.user.username }}</td>
+                <td>{{ reservation.habitat.title }}</td>
+                <td>{{ reservation.startDate|date('Y-m-d H:i') }}</td>
+                <td>{{ reservation.endDate|date('Y-m-d H:i') }}</td>
+                <td>{{ reservation.totalPrice }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

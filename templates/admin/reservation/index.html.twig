@@ -1,33 +1,30 @@
-{% extends 'admin/admin.html.twig' %}
- 
-{% block title "Reservation" %}
-
+{% extends 'base.html.twig' %}
 
 {% block body %}
- <p> <a class="btn btn-primary btn-sm" href="{{ url('admin.category.create') }}">Ajouter une reservation</a></p>
+    <h1>Reservations</h1>
 
-<table class="table">
-<thead>
-  <tr>
-    <th>Nom</th>
-    <th style="width: 200px">Actions</th>
-  </tr>
-</thead>
-<tbody>
-{% for category in categories %}
-  <tr>
-    <td> <a href="{{ url('admin.category.edit', {id: category.id}) }}">{{category.name}}</a></td>
-    <td>
-    <div class="d-flex gap-1">
-    <a class="btn btn-primary btn-sm" href="{{ url('admin.category.edit', {id: category.id}) }}">Editer</a>
-    <form action="{{ path('admin.category.delete', {id: category.id}) }}" method="post">
-      <input type="hidden" name="_method" value="DELETE">
-      <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-    </form>
-    </div>
-    </td>
-  </tr>
-   {% endfor %}
-<tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Habitat</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.user.username }}</td>
+                <td>{{ reservation.habitat.title }}</td>
+                <td>{{ reservation.startDate|date('Y-m-d H:i') }}</td>
+                <td>{{ reservation.endDate|date('Y-m-d H:i') }}</td>
+                <td>{{ reservation.totalPrice }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
