@@ -44,16 +44,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     
-<<<<<<< HEAD
     #[ORM\Column(length: 255, nullable: false, options: ['default' => ''])]
     private ?string $api_token = '';
     
 
 
-=======
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $api_token = null;
->>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $api_token = null;
 
     /**
      * @var Collection<int, Habitat>
