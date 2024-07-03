@@ -50,7 +50,6 @@
                            <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') starts with 'option.' %}active{% endif %}" href="{{ path('admin.option.index') }}">Option</a>
                            </li>
-<<<<<<< HEAD
                 {% endif %}
                            <li class="nav-item">
                          <a class="nav-link {% if app.request.attributes.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">Inscription</a>
@@ -63,11 +62,9 @@
                           <li class="nav-item">
                          <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">logout</a>
                           </li>
-=======
                            <li class="nav-item">
                                 <a class="nav-link {% if app.request.attributes.get('_route') == 'profile' %}active{% endif %}" href="{{ path('profile') }}">Mon profil</a>
                            </li>
->>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
                       </ul>
                 </div>
         </div>
