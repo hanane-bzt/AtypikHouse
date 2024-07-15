@@ -2,14 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\Category;
 use App\Entity\Habitat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<Habitat>
@@ -21,72 +19,67 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HabitatRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry,private PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Habitat::class);
     }
 
-    public function paginateHabitat(int $page, int $limit):Paginator
+    public function paginateHabitat(int $page, int $limit = 10): DoctrinePaginator
     {
+        $query = $this->createQueryBuilder('h')
+            ->leftJoin('h.category', 'c')
+            ->addSelect('c')
+            ->getQuery();
 
-        return new Paginator($this
-        ->createQueryBuilder('h')
-        ->setFirstResult(($page - 1) * $limit)
-        ->setMaxResults($limit)
-        ->getQuery()
-        ->setHint(Paginator::HINT_ENABLE_DISTINCT,false),
-        false);
-
+        return new DoctrinePaginator($query, false);
     }
 
-    public function paginateHabitats(int $page, ?int $userId):PaginationInterface
+    public function paginateHabitats(int $page, ?int $userId = null, int $limit = 20): PaginationInterface
     {
-
-        $builder=$this->createQueryBuilder('h')->leftJoin('h.category','c')->select('h','c');
-        if($userId){
-            $builder=$builder->andWhere('h.user = :user')
-            ->setParameter('user', $userId);
-        } 
+        $builder = $this->createQueryBuilder('h')
+            ->leftJoin('h.category', 'c')
+            ->addSelect('c');
+    
+        if ($userId !== null) {
+            $builder->andWhere('h.user = :user')
+                ->setParameter('user', $userId);
+        }
+    
         return $this->paginator->paginate(
-    $builder,
-    $page,
-    20,
-    [
-        'distinct'=>false,
-        'sortFieldAllowList'=>['h.id','h.title']
-    ]
-    );
-
+            $builder,
+            $page,
+            $limit,
+            [
+                'distinct' => false,
+                'sortFieldAllowList' => ['h.id', 'h.title']
+            ]
+        );
     }
 
-
-    public function findTotalPrice():int
+    public function findTotalPrice(): int
     {
-        return $this->createQueryBuilder('p')
-        ->select('SUM(p.price) as total')
-        ->getQuery()
-        ->getSingleScalarResult();
+        return (int) $this->createQueryBuilder('h')
+            ->select('SUM(h.price) as total')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
-     /**
-      * @return Habitat[] 
-      */
-    public function findWithPriceLowerThan(int $price): array
+    /**
+     * @return Habitat[]
+     */
+    public function findWithPriceLowerThan(int $price, int $limit = 100): array
     {
         return $this->createQueryBuilder('h')
-        ->select('h','c')
-        ->where('h.price < :price')
-        ->leftJoin('h.category', 'c')
-        ->orderBy('h.price', 'ASC')
-        //->andWhere('c.id = 1')
-        ->setMaxResults(100)
-        ->setParameter('price',$price)
-        ->getQuery()
-        ->getResult();
+            ->select('h', 'c')
+            ->leftJoin('h.category', 'c')
+            ->where('h.price < :price')
+            ->orderBy('h.price', 'ASC')
+            ->setMaxResults($limit)
+            ->setParameter('price', $price)
+            ->getQuery()
+            ->getResult();
     }
-
-
-
+}
     //    /**
     //     * @return Habitat[] Returns an array of Habitat objects
     //     */
@@ -111,4 +104,4 @@ class HabitatRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+

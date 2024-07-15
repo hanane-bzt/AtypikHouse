@@ -17,3 +17,4 @@ user_delete:
     controller: App\Controller\UserController::deleteUser
     methods: POST
 
+

@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 #[UniqueEntity('name')]
@@ -29,6 +31,7 @@ class Ville
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 3)]
+    #[Groups(['habitats.show'])]
     private string $name = '';
 
     #[ORM\Column(length: 255)]

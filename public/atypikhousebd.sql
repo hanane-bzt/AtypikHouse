@@ -1,0 +1,245 @@
+-- Adminer 4.8.1 MySQL 10.5.23-MariaDB-0+deb11u1 dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+SET NAMES utf8mb4;
+
+DROP DATABASE IF EXISTS `atypikhousebd`;
+CREATE DATABASE `atypikhousebd` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `atypikhousebd`;
+
+INSERT INTO `category` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(568,	'Cabanes',	'cabane',	'2002-12-03 23:11:57',	'2024-07-03 18:46:17'),
+(569,	'Tente',	'Tente',	'2013-03-19 19:27:12',	'1989-05-28 12:50:04'),
+(570,	'Wigwam',	'Wigwam',	'2009-07-21 02:20:22',	'2000-05-18 04:49:04'),
+(571,	'Pod',	'Pod',	'1974-12-13 09:40:41',	'2018-05-28 01:07:20'),
+(572,	'Maison flottante',	'Maison-flottante',	'2006-11-03 00:56:38',	'2009-05-07 11:36:50'),
+(573,	'Tour d\'observation',	'Tour-d-observation',	'2007-08-31 04:47:36',	'2024-03-29 00:08:20'),
+(574,	'Tiny House',	'Tiny-House',	'1997-12-20 10:11:09',	'2005-07-04 06:20:29'),
+(575,	'Bulle',	'Bulle',	'1985-09-24 10:37:27',	'2013-08-28 01:47:33'),
+(576,	'Lov\'Nid',	'Lov-Nid',	'1992-11-15 06:01:46',	'1976-09-13 09:15:33'),
+(577,	'Roulotte',	'Roulotte',	'1984-08-21 23:01:48',	'1984-01-12 18:27:07'),
+(578,	'Sphère',	'Sphere',	'2002-09-10 05:20:58',	'2011-10-05 01:46:49'),
+(579,	'Studio de jardin',	'Studio-de-jardin',	'2015-04-17 12:24:25',	'1995-08-30 21:39:07'),
+(580,	'Toue cabanée',	'Toue-cabanee',	'1975-03-29 15:48:02',	'2015-08-27 10:10:59'),
+(581,	'Ecolo-module',	'Ecolo-module',	'1990-05-11 11:45:10',	'1973-03-28 09:36:42'),
+(582,	'Maison modulaire',	'Maison-modulaire',	'2001-03-04 21:43:27',	'2020-11-24 04:38:10'),
+(583,	'Maison de Hobbit',	'Maison-de-Hobbit',	'2006-04-29 21:33:33',	'2014-12-15 11:35:24'),
+(584,	'Tipi verre',	'Tipi-verre',	'2001-09-30 23:21:42',	'2012-10-04 12:56:46'),
+(585,	'Zome',	'Zome',	'1978-05-02 21:23:11',	'2018-02-06 20:15:30'),
+(586,	'Cocoon',	'Cocoon',	'1984-01-30 21:05:25',	'1976-01-29 22:58:50'),
+(587,	'Yourte',	'Yourte',	'2014-04-01 18:40:23',	'2000-11-10 07:19:19'),
+(588,	'Kota',	'Kota',	'1993-05-18 15:02:43',	'1976-02-05 02:57:07'),
+(589,	'Dôme',	'Dome',	'1970-05-11 15:01:30',	'1970-06-20 09:50:42'),
+(590,	'Tipi',	'Tipi',	'1970-11-05 14:54:38',	'2005-01-06 12:15:41'),
+(591,	'Pyramide',	'Pyramide',	'1992-08-11 12:01:36',	'1986-05-15 05:23:05'),
+(592,	'Pavillon',	'Pavillon',	'1978-10-13 05:12:50',	'2016-06-03 01:52:48'),
+(594,	'lacategorie',	'la-categorie',	'2024-07-10 22:47:48',	'2024-07-10 22:47:48')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`), `slug` = VALUES(`slug`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`);
+
+INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
+('DoctrineMigrations\\Version20240321042303',	'2024-03-21 04:26:04',	33),
+('DoctrineMigrations\\Version20240330014511',	'2024-03-30 01:47:05',	129),
+('DoctrineMigrations\\Version20240330162909',	'2024-03-30 16:30:59',	258),
+('DoctrineMigrations\\Version20240409000954',	'2024-04-09 00:16:12',	187),
+('DoctrineMigrations\\Version20240409221128',	'2024-04-09 22:13:36',	44),
+('DoctrineMigrations\\Version20240416001510',	'2024-04-16 00:16:40',	94),
+('DoctrineMigrations\\Version20240527110052',	'2024-05-27 11:02:20',	96),
+('DoctrineMigrations\\Version20240601080722',	'2024-06-01 08:08:27',	102),
+('DoctrineMigrations\\Version20240601095034',	'2024-06-01 09:52:09',	168),
+('DoctrineMigrations\\Version20240601101218',	'2024-06-01 10:12:34',	151),
+('DoctrineMigrations\\Version20240602010313',	'2024-06-02 01:04:27',	195),
+('DoctrineMigrations\\Version20240605120628',	'2024-06-05 12:06:49',	1317),
+('DoctrineMigrations\\Version20240605131105',	'2024-06-05 13:11:10',	523),
+('DoctrineMigrations\\Version20240606124958',	'2024-06-06 12:50:17',	258),
+('DoctrineMigrations\\Version20240607002238',	'2024-06-07 00:22:52',	441),
+('DoctrineMigrations\\Version20240607093642',	'2024-06-07 09:37:35',	372),
+('DoctrineMigrations\\Version20240608222850',	'2024-06-08 22:29:41',	435),
+('DoctrineMigrations\\Version20240610112928',	'2024-06-10 11:29:37',	106),
+('DoctrineMigrations\\Version20240611091725',	'2024-06-11 09:20:07',	856),
+('DoctrineMigrations\\Version20240618223814',	'2024-06-18 22:42:16',	398),
+('DoctrineMigrations\\Version20240701183128',	'2024-07-01 18:31:44',	398)
+ON DUPLICATE KEY UPDATE `version` = VALUES(`version`), `executed_at` = VALUES(`executed_at`), `execution_time` = VALUES(`execution_time`);
+
+INSERT INTO `habitat` (`id`, `title`, `address`, `slug`, `category_id`, `ville_id`, `content`, `capacity`, `nombre_de_couchage`, `price`, `file`, `en_vente`, `created_at`, `updated_at`, `user_id`) VALUES
+(299,	'Sint qui at culpa voluptate eius laborum.',	'place de Paris\n44151 Weber',	'Sint-qui-at-culpa-voluptate-eius-laborum',	584,	857,	'Aut et est sed iure. Incidunt nam quod expedita rerum in numquam. Nulla praesentium ad nulla. At magni labore deleniti modi rerum ipsum consequatur.\n\nNisi sunt qui dolores tempora dolores illum. Deserunt non earum qui corporis distinctio est libero. Sunt dolorum vel qui nihil distinctio nihil magni.\n\nLaudantium pariatur enim aut. Corporis inventore et voluptas ipsa eius consequuntur qui. Maxime vitae maxime sit non. Itaque amet culpa autem est ullam.\n\nA explicabo aperiam cum consequuntur. Numquam repellat labore ex et adipisci voluptas. Sed dolor veniam natus veniam voluptas labore fuga. Reiciendis nihil dolor modi porro rerum.\n\nSunt cum atque autem sit et quae. Praesentium ducimus quisquam voluptatem vitae. Blanditiis accusamus neque tempora dolores necessitatibus iste. Sunt et delectus ratione in adipisci quos.\n\nUt praesentium quo ea asperiores sequi voluptatem et. Fugit aspernatur illum voluptatem sunt.\n\nQuasi dolor molestiae cupiditate ut. Ut ut corrupti distinctio vel ullam voluptatem. Nemo recusandae rem error et autem quod et. Consequatur et est eos corrupti qui. Consequuntur illo quia fugiat in quia nemo.\n\nQuia id odit impedit. Omnis nihil rerum id sequi et. Inventore delectus explicabo consequatur ex.\n\nNatus laboriosam totam ut fugit est. Nihil sunt praesentium maiores aut. Quam magnam aut cumque ex.\n\nVoluptas quisquam sed officia quia hic rerum qui. Iure numquam enim numquam voluptatem mollitia qui est. Deleniti aut iure libero sequi quidem labore. Reiciendis maiores sunt voluptatem explicabo temporibus accusantium.',	659.00,	6,	220.90,	NULL,	1,	'2000-01-01 01:24:38',	'2007-04-18 09:18:48',	94),
+(300,	'Molestiae odio cum et corrupti.',	'2, avenue Hugues Monnier\n89782 Mathieu-sur-Mer',	'Molestiae-odio-cum-et-corrupti',	568,	822,	'Cupiditate dolor et placeat laudantium nihil est quis distinctio. Id repellendus doloribus aut ea illum quibusdam. Et adipisci sit doloremque libero ab aut exercitationem maxime. Repellat voluptatem deleniti dolorem doloremque numquam iure.\n\nConsequuntur voluptates voluptates eum quam. Eos reiciendis aspernatur maiores non dolorum tenetur quo. Cupiditate eum officia nulla. Est eaque laborum ullam rerum in est natus.\n\nNon et dolores culpa id minus ut. Autem modi et autem tenetur consequatur adipisci. Qui veritatis impedit quam dolores. Ut quia voluptas dignissimos sed amet ut non eos.\n\nVoluptatem ex assumenda laudantium praesentium voluptatem. Molestiae consequatur dolores ut a voluptas. Laboriosam tempore qui ipsum rerum.\n\nNemo odit quo animi ut. Est adipisci voluptates qui a tempora. Modi quaerat ratione vel. Modi vel culpa aut quaerat nisi sint quia.\n\nVoluptatibus similique non dolore et. Voluptatibus iusto qui et. Id veniam odio ipsam iusto facere laudantium itaque.\n\nEum aut sit assumenda possimus odio consequatur animi. Perferendis nam ullam recusandae incidunt iste. Quae itaque nisi qui est qui vel. Quod aut sed fugit dolores.\n\nAdipisci omnis suscipit et dolor neque nulla fugiat. At quia cupiditate dolorum. Ipsam iure enim recusandae aspernatur.\n\nNon at iste asperiores iusto voluptatem at fugiat. Consectetur iusto magnam enim architecto veniam. Voluptatem repudiandae itaque quam.\n\nEum sint quod dolore dignissimos ullam ut. Debitis cupiditate ipsum aut iure dolor ex voluptatem. Qui qui ullam enim ipsa nemo sunt facere. Odio ut sunt reprehenderit vel. Facere et dolores accusamus dolore ex itaque.',	315.00,	1,	1003.77,	NULL,	1,	'2014-11-11 22:53:17',	'1986-04-14 18:17:45',	94),
+(301,	'Non modi debitis voluptate ipsa dicta.',	'1, chemin Aubry\n22587 Valentin',	'Non-modi-debitis-voluptate-ipsa-dicta',	588,	849,	'Animi officiis impedit sunt exercitationem quod quo quas. Assumenda similique aut ea libero tenetur tempore. Laborum voluptatum incidunt libero veritatis sed accusantium. Dolor placeat similique nostrum incidunt aperiam consectetur.\n\nAdipisci cum ut ex dolorem. Voluptatem laudantium ipsa aliquam voluptatibus inventore quo. Quae odio mollitia numquam et sed.\n\nRepudiandae enim necessitatibus voluptas enim et facere. Illum quibusdam iste dolor placeat asperiores. Autem et tenetur possimus maiores. Odit tempora aut porro exercitationem doloribus blanditiis sit. Odit voluptatum aperiam in quia.\n\nEst a dicta ab autem maxime libero. Accusamus ut quia iusto saepe. Quibusdam molestias voluptatem eveniet neque fugiat exercitationem consectetur repudiandae.\n\nRem recusandae voluptatem sequi earum. Non aut vero dolor dolor fugiat ut. Vitae sequi nam maxime quas.\n\nSunt consectetur explicabo soluta quia aspernatur. Nostrum iusto fuga neque. Tempore voluptatem mollitia rerum quia doloribus dolor quo. Officiis et soluta beatae consequatur.\n\nDelectus ea voluptate omnis ut molestiae. At sit assumenda sed corporis soluta. Harum quidem vitae rerum et distinctio dolor. Et similique ea nisi voluptates repellendus.\n\nNeque quia ut excepturi vitae quia. Consequatur earum sed nobis earum laborum dicta neque. Est cum possimus debitis minus.\n\nPorro reprehenderit officia quod. Occaecati sit quos voluptas ex. Culpa architecto voluptas asperiores adipisci soluta. Aut eos numquam accusamus eveniet ex enim laudantium.\n\nPraesentium aliquam facilis beatae dolores nulla iure corrupti. Cum quas blanditiis consequatur et ab quidem. Modi pariatur corporis quia et facilis vel.',	627.00,	7,	1161.94,	NULL,	0,	'2022-07-27 18:30:59',	'1982-02-06 17:12:31',	95),
+(302,	'Nostrum velit recusandae in.',	'37, chemin de Marchand\n87117 Briand-sur-Lejeune',	'Nostrum-velit-recusandae-in',	577,	841,	'Voluptatem nemo sed ab deserunt officiis impedit aut saepe. Qui aut doloribus aliquid aut. Inventore aut dolores animi libero qui.\n\nOfficiis harum voluptates laboriosam exercitationem laborum cum. Dolores quia vel et culpa numquam. Sint doloremque omnis et debitis quisquam. Saepe aut ipsa hic placeat fugit.\n\nSed odio id tempore et esse. Quasi fugit iusto corrupti similique. Est dolorem ut velit architecto aut sit. Placeat velit blanditiis quo qui.\n\nEnim facere tempore eaque est impedit aut et. Fuga aut quos voluptas fuga.\n\nVel ea eligendi ab et possimus voluptatem qui. Fugiat unde provident libero ut. Odio et et assumenda hic quia ea culpa. Quibusdam dignissimos laborum a dolorem.\n\nAut sit dolores expedita aut sit sit officia. Accusamus eos ut sed magnam earum ipsam alias.\n\nExcepturi ut dolor enim quibusdam minima non et. Animi nulla soluta tenetur repudiandae.\n\nQuae impedit est nemo qui et assumenda sit. Quos nihil ex veniam dolores eveniet officia quo. Qui occaecati blanditiis praesentium itaque nihil sit et dolores. Aut similique commodi sit velit expedita autem explicabo.\n\nOptio et molestiae voluptas. Quae quia eaque eum unde fuga. Earum facilis quo nulla quia voluptate velit ut sed. Dolores ut doloremque amet aut facere.\n\nDoloremque ipsa natus aut aut consequatur beatae distinctio. Enim est fugit minus reiciendis quod recusandae. Adipisci qui sunt minima cupiditate neque enim. Et at aliquam dolorem error hic est architecto minus.',	658.00,	6,	1687.66,	NULL,	0,	'1976-06-17 16:10:29',	'2022-10-15 01:23:42',	96),
+(303,	'Consectetur animi quibusdam et quia illum esse voluptas.',	'32, avenue Garnier\n17428 Allard',	'Consectetur-animi-quibusdam-et-quia-illum-esse-voluptas',	570,	850,	'Inventore iste est necessitatibus placeat. Enim unde laudantium molestiae rerum quo non beatae. Laborum natus voluptas voluptatem nostrum quam.\n\nAmet hic quos ducimus. Libero dolores sint est odio ab magni at sint. Totam et possimus esse voluptatem debitis et ut qui. Deleniti voluptas sed quod occaecati ex.\n\nNihil sed et voluptatum culpa et. Rerum sed cumque voluptatem corporis nihil.\n\nQuia eligendi saepe soluta perferendis. Aliquam ut enim fugit expedita.\n\nAd quos et non vero consequatur rerum sed autem. Voluptatem explicabo est perferendis. Eius molestias debitis a dolorem porro inventore dolorum. Deserunt voluptatem nihil nostrum impedit.\n\nAperiam dolorum pariatur consequatur aut. Et et libero eos dolorem. Eligendi corrupti doloremque magni accusamus recusandae voluptate. Quam ut quasi qui dolorem et.\n\nAut nulla dolorem molestiae aut explicabo dignissimos possimus. Excepturi et cum nostrum culpa omnis quis. Architecto in sed magni culpa voluptates sint neque. Voluptatem rerum quia maxime sint quia quo.\n\nSunt rem voluptatem recusandae est rerum explicabo. Libero voluptatem dolor consequatur aspernatur ab dolore. Quia tenetur quo necessitatibus veniam dolorem officia. Numquam cumque ad fugiat magni alias. Accusamus aut quasi dolores amet nihil.\n\nRepudiandae omnis tempora aperiam id. Cum et quo dolores consequuntur recusandae. Dicta doloribus distinctio porro voluptatem est. Nesciunt praesentium voluptates et voluptatum.\n\nLaudantium ad rerum alias consequuntur omnis provident perspiciatis. Deserunt assumenda quam itaque qui. Tenetur iure rerum fuga perspiciatis asperiores illum. Et aut odio ipsam eum ut cum. Distinctio voluptatem fugit labore accusamus molestias saepe.',	748.00,	4,	682.35,	NULL,	1,	'1980-03-19 18:54:44',	'2019-06-01 03:46:25',	96),
+(304,	'Deleniti nihil ut architecto eaque.',	'place de Bouvier\r\n02068 Peltier',	'deleniti-nihil-ut-architecto-eaque',	582,	837,	'Voluptatibus ullam deserunt et vero cupiditate non nesciunt. Sequi ipsa consequatur illo harum cum accusamus voluptatibus. Vitae aut nemo omnis debitis. Recusandae neque quam ut reprehenderit.\r\n\r\nMaxime praesentium asperiores ab consequatur sint laboriosam aut. Quo commodi a quas quis nobis ut omnis. Sed beatae quas soluta aut esse ratione.\r\n\r\nVeritatis quasi neque placeat voluptas. Harum quis velit distinctio et quo quaerat maiores.\r\n\r\nTempore dolorem exercitationem reprehenderit nihil incidunt. Qui possimus praesentium non voluptatem consequatur. Et et voluptatem necessitatibus iusto.\r\n\r\nDeserunt sunt quaerat voluptate esse sequi ut vitae. Quasi beatae ullam debitis ut. Doloribus dignissimos non labore ea est non.\r\n\r\nIpsa nam explicabo tempora alias necessitatibus recusandae. Veritatis esse inventore corporis itaque harum molestias tempora. Voluptatum atque quis et eum ut.\r\n\r\nTemporibus sed quos tenetur dolor sint. Rerum temporibus numquam incidunt soluta. Quidem sunt quae officia voluptates. Eveniet ut sint vel explicabo sint. Soluta quia quibusdam nihil ducimus dolore.\r\n\r\nEt inventore molestiae est minima ab quia. Officiis ut maxime fugit perspiciatis. Nisi non veritatis voluptatum molestias ut optio.\r\n\r\nAut architecto minima debitis esse nesciunt. Vel dolor nostrum cum architecto. Voluptatum fugit odio delectus repellat. Animi enim quia perferendis ducimus accusantium.\r\n\r\nAut possimus magni provident at quia. Accusantium itaque est quisquam eligendi omnis reiciendis. Quo dolorem illo quos. Iste magni illo magni ut cumque.',	219.00,	2,	1225.77,	'case-6682fcac6ebe4628222516.jpg',	1,	'1994-04-20 09:57:51',	'2024-07-01 18:59:56',	97),
+(305,	'Autem eos quasi quisquam saepe aut.',	'28, place Théodore Camus\n84025 Chevalier',	'Autem-eos-quasi-quisquam-saepe-aut',	591,	820,	'Et veniam repellendus pariatur sint. Nam corrupti omnis et temporibus maxime illum pariatur. Voluptatem alias perspiciatis et sapiente est.\n\nItaque perferendis in eum doloremque. Deleniti qui sit molestiae incidunt voluptatem. Voluptas autem ducimus aut est.\n\nVoluptate ad molestiae quidem fugit consequuntur error amet provident. Sit cum non omnis et consequatur vitae. Necessitatibus quia quibusdam non est ad dolorum ea.\n\nOccaecati aut voluptates et molestias et. Molestiae excepturi non non numquam in deserunt laudantium. Minus ut officia ea ut. Necessitatibus omnis quia et nostrum aperiam blanditiis.\n\nSed hic odit voluptatum qui velit nulla omnis assumenda. Delectus nisi modi earum qui maxime aut. Libero saepe ipsum eligendi. Hic et voluptatum ut error odio.\n\nDeleniti numquam ea et suscipit nihil voluptatem reprehenderit. In cumque esse iste neque non aspernatur. Odit necessitatibus veniam culpa aut explicabo. Ex libero quasi asperiores molestiae nam.\n\nEt sint nemo rem inventore et. Culpa qui quas ut sed officiis quo dolor. Commodi quaerat aut voluptatibus amet. Et officiis vitae sint. Quis eius aut fuga sint eos iste voluptate.\n\nExplicabo esse sint nulla sit. Voluptatem aliquid ad consectetur nesciunt ad. Saepe eos consequatur ratione enim eum pariatur consectetur.\n\nIncidunt eaque optio et at temporibus. Veritatis labore cumque nostrum autem asperiores omnis quisquam reiciendis.\n\nCum aliquam quia eaque voluptatem quia eos numquam. Voluptatum laudantium et error. Maxime qui quis reprehenderit reprehenderit tempore voluptatem.',	32.00,	8,	632.00,	NULL,	0,	'1970-04-27 20:20:59',	'2013-09-26 23:47:27',	98),
+(306,	'Et iste sint eos dolor ut non ut.',	'rue de Bourdon\n36819 Gerard',	'Et-iste-sint-eos-dolor-ut-non-ut',	573,	841,	'Ut dolorem praesentium laboriosam nam aperiam. Ipsum porro asperiores nihil facere magnam maiores iusto.\n\nEst et veniam et corporis aperiam et magnam officiis. Nihil nesciunt numquam et possimus consectetur repellat. Qui vel maxime qui quaerat inventore incidunt.\n\nVoluptatem reprehenderit reprehenderit aspernatur asperiores qui eligendi et et. At quia cumque corporis sint. Sint aut doloremque aut provident. Deleniti est omnis et nihil.\n\nQuo et id sed est perferendis qui laudantium. Ea assumenda voluptatem id modi. Natus aut et sit ipsum placeat quis.\n\nDoloribus libero voluptatem sunt itaque molestias et nihil. Omnis vitae molestiae odio aut explicabo sunt quae. Cum expedita amet itaque voluptatibus omnis.\n\nConsectetur itaque excepturi beatae at magni sit dolor autem. Ea exercitationem expedita ut recusandae eveniet perspiciatis. Sed nam quia accusamus inventore.\n\nQuidem porro et rerum. Quasi libero blanditiis et. Atque est voluptatem qui vitae.\n\nSed qui accusantium sit et necessitatibus. Qui non omnis dolore maiores temporibus aut. Eos vitae voluptates unde dolorem delectus voluptatum recusandae. Distinctio fugit optio aliquam dicta odio vel.\n\nOfficia quidem ad doloribus. Iure soluta debitis ipsum odio ipsum. Est rerum quis sunt repudiandae mollitia. Quo repellat eveniet culpa enim accusamus. Non amet est molestiae et.\n\nSit beatae nisi iure repellendus. Dolores eum impedit dignissimos sint. Doloremque enim ut libero architecto eius nobis incidunt.',	125.00,	7,	622.51,	NULL,	1,	'1980-04-14 19:46:59',	'1991-05-05 06:03:45',	99),
+(307,	'Neque dolorem eligendi inventore non tempore.',	'chemin de Fournier\n13130 Delmas',	'Neque-dolorem-eligendi-inventore-non-tempore',	575,	828,	'Fuga fugit recusandae itaque dignissimos. Repellendus est aperiam rem incidunt voluptas saepe libero. Quos ut eos fugit velit.\n\nConsectetur cupiditate optio consequuntur qui et iusto est. Sapiente ut ea neque eos facilis ipsum molestias. Et voluptas facere fugit aut sed. Reiciendis animi suscipit accusamus asperiores.\n\nFacilis incidunt consequatur aut aperiam occaecati. Quas aspernatur dolorum enim fuga. Aut autem praesentium beatae vitae sunt possimus odit. Quidem ea id aspernatur possimus.\n\nDignissimos adipisci facere occaecati quam ipsum aut tenetur. Voluptate omnis non aut non excepturi exercitationem sed. Esse tempora aliquam et quia perferendis tempora. Ad earum voluptatibus repellat voluptatibus qui enim. Dignissimos non expedita soluta animi molestiae sequi.\n\nIn assumenda eos officia. Rem non natus delectus totam. Labore sit iusto non voluptatum eos deserunt nihil molestias. Voluptate vero velit libero natus ut.\n\nQuis inventore rerum beatae cumque. Quas dicta aut iste voluptas recusandae consectetur corrupti. Atque est error voluptas qui fuga provident.\n\nLaborum quibusdam ipsum non ducimus eum. Consequatur qui ab illum id.\n\nPlaceat fugiat consequatur voluptatum et. Quo fuga cum saepe sit voluptas.\n\nOdit eos corporis assumenda eaque non. Ex mollitia eum ipsa voluptatum excepturi tenetur molestiae. Corrupti accusamus voluptatibus sed at enim. Soluta reiciendis repellat eum est odio et.\n\nEt dolor impedit ex. Perferendis officiis accusantium amet et cum commodi.',	348.00,	9,	450.14,	NULL,	1,	'1974-08-06 23:02:07',	'2007-03-09 17:11:53',	99),
+(308,	'okokokokokokokoo',	'place de Paris\n44151 Weber',	'ccgg-gh-ggg-hhh',	NULL,	NULL,	'zqesrdtfyghjikomlùmkjhgfxdwswfxgchvjb',	45.00,	6,	220.90,	NULL,	1,	'2024-07-06 02:06:19',	'2024-07-06 02:06:19',	NULL),
+(309,	'maison cool',	'place de Paris\n44151 Weber',	'ccgg-gh-ggg-m',	NULL,	NULL,	'zqesrdtfyghjikomlùmkjhgfxdwswfxgchvjb',	45.00,	6,	220.90,	NULL,	1,	'2024-07-06 02:16:01',	'2024-07-06 02:16:01',	NULL),
+(310,	'New Habitat',	'123 Main St',	'new-habitat',	NULL,	NULL,	'',	4.50,	2,	100.00,	'habitat.jpg',	1,	'2024-07-12 22:40:55',	'2024-07-12 22:46:34',	NULL)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `title` = VALUES(`title`), `address` = VALUES(`address`), `slug` = VALUES(`slug`), `category_id` = VALUES(`category_id`), `ville_id` = VALUES(`ville_id`), `content` = VALUES(`content`), `capacity` = VALUES(`capacity`), `nombre_de_couchage` = VALUES(`nombre_de_couchage`), `price` = VALUES(`price`), `file` = VALUES(`file`), `en_vente` = VALUES(`en_vente`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `user_id` = VALUES(`user_id`);
+
+
+INSERT INTO `option` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(922,	'Vues panoramiques uniques et cadre exceptionnel',	'vues-panoramiques-uniques-et-cadre-exceptionnel',	'1975-01-31 14:47:30',	'2007-01-24 00:21:15'),
+(923,	'Jardins et espaces extérieurs atypiques (cabanes dans les arbres, maisons sur l\'eau, etc.)',	'jardins-et-espaces-exterieurs-atypiques-cabanes-dans-les-arbres-maisons-sur-l-eau-etc',	'2013-08-04 23:13:30',	'1998-04-21 09:49:40'),
+(924,	'Kitchenette et coin repas optimisés dans un petit espace (tiny houses, maisons dômes)',	'kitchenette-et-coin-repas-optimises-dans-un-petit-espace-tiny-houses-maisons-domes',	'2022-10-12 03:21:46',	'1983-12-12 19:29:32'),
+(925,	'Chambre et salle de bains intégrées (tiny houses, maisons dômes)',	'chambre-et-salle-de-bains-integrees-tiny-houses-maisons-domes',	'1980-08-03 17:58:58',	'1993-12-29 00:48:19'),
+(926,	'Forme aérodynamique et structure solide pour une meilleure résistance aux intempéries (maisons dômes)',	'forme-aerodynamique-et-structure-solide-pour-une-meilleure-resistance-aux-intemperies-maisons-domes',	'2011-04-26 17:06:44',	'1997-08-14 17:57:47'),
+(927,	'Meilleure circulation de l\'air et répartition efficace de la chaleur grâce à la forme (maisons dômes)',	'meilleure-circulation-de-l-air-et-repartition-efficace-de-la-chaleur-grace-a-la-forme-maisons-domes',	'1977-11-15 19:30:15',	'1972-03-24 12:52:10'),
+(928,	'Superficie réduite et mobilité (tiny houses)',	'superficie-reduite-et-mobilite-tiny-houses',	'1991-01-16 16:32:47',	'1973-04-25 17:34:58'),
+(929,	'Espaces suroptimisés, mobilier modulaire et autonomie énergétique (tiny houses)',	'espaces-suroptimises-mobilier-modulaire-et-autonomie-energetique-tiny-houses',	'2002-12-10 17:06:36',	'1990-11-20 15:39:11'),
+(930,	'Immersion dans des cultures et architectures originales (péniches, huttes, chalets)',	'immersion-dans-des-cultures-et-architectures-originales-peniches-huttes-chalets',	'1988-08-31 21:26:32',	'1979-06-04 05:48:23'),
+(931,	'Confort allié à l\'originalité (cabanes dans les arbres)',	'confort-allie-a-l-originalite-cabanes-dans-les-arbres',	'2001-02-14 22:53:54',	'2010-09-24 10:48:14'),
+(932,	'Toile de fond parfaite pour des photos inoubliables (dômes sous les étoiles, granges, gîtes)',	'toile-de-fond-parfaite-pour-des-photos-inoubliables-domes-sous-les-etoiles-granges-gites',	'1971-06-27 18:17:06',	'2007-03-30 15:47:51'),
+(933,	'Possibilité d\'installer une structure insolite dans son jardin comme chambre d\'amis ou coin détente',	'possibilite-d-installer-une-structure-insolite-dans-son-jardin-comme-chambre-d-amis-ou-coin-detente',	'1979-05-07 09:08:07',	'1971-01-02 09:06:52'),
+(934,	'Expérience de vie en pleine nature dans une bulle transparente (maison bulle)',	'experience-de-vie-en-pleine-nature-dans-une-bulle-transparente-maison-bulle',	'2015-11-30 18:18:31',	'1980-08-23 13:56:53'),
+(935,	'Immersion dans la culture nomade avec une yourte traditionnelle mongole',	'immersion-dans-la-culture-nomade-avec-une-yourte-traditionnelle-mongole',	'1994-12-16 00:59:50',	'1983-03-16 10:44:51'),
+(936,	'Vivre sur l\'eau dans une péniche aménagée ou un bateau insolite',	'vivre-sur-l-eau-dans-une-peniche-amenagee-ou-un-bateau-insolite',	'1996-05-08 05:02:31',	'2013-01-08 11:52:55'),
+(937,	'Découvrir l\'architecture troglodyte en vivant dans une maison creusée dans la roche',	'decouvrir-l-architecture-troglodyte-en-vivant-dans-une-maison-creusee-dans-la-roche',	'2013-10-20 16:53:11',	'1976-11-17 23:33:55'),
+(938,	'Séjour insolite dans une roulotte ou tiny house sur roues pour changer de paysage',	'sejour-insolite-dans-une-roulotte-ou-tiny-house-sur-roues-pour-changer-de-paysage',	'2006-11-15 23:52:28',	'2014-11-12 06:15:11'),
+(939,	'Dormir dans une maison de verre offrant une vue panoramique à 360°',	'dormir-dans-une-maison-de-verre-offrant-une-vue-panoramique-a-360',	'2024-07-01 13:17:32',	'2020-01-08 02:15:55')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`), `slug` = VALUES(`slug`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`);
+
+INSERT INTO `pays` (`id`, `name`, `code`, `created_at`, `updated_at`) VALUES
+(835,	'France',	'VI',	'2022-08-12 11:04:09',	'2023-04-30 14:09:39'),
+(836,	'Belgique',	'TL',	'2023-05-06 19:29:45',	'2022-09-17 13:06:05'),
+(837,	'Suisse',	'IL',	'2022-10-25 05:17:13',	'2024-06-06 22:15:53'),
+(838,	'Espagne',	'OM',	'2023-07-17 06:36:22',	'2024-01-27 09:02:46'),
+(839,	'Italie',	'IM',	'2022-08-08 16:46:13',	'2022-10-27 12:11:05'),
+(840,	'Allemagne',	'MN',	'2022-08-26 03:05:30',	'2023-05-09 04:53:07'),
+(841,	'Royaume-Uni',	'ME',	'2023-08-27 03:23:16',	'2022-07-06 10:41:06'),
+(842,	'Portugal',	'AR',	'2023-05-12 04:39:18',	'2023-08-01 22:24:20'),
+(843,	'Pays-Bas',	'KY',	'2023-09-03 01:01:39',	'2024-02-14 12:54:44'),
+(844,	'Suède',	'ZA',	'2022-12-31 02:11:51',	'2023-07-15 08:45:47'),
+(845,	'Norvège',	'VI',	'2023-08-18 21:55:05',	'2022-10-07 12:45:38'),
+(846,	'Danemark',	'CV',	'2023-05-05 05:44:34',	'2022-11-23 17:45:55'),
+(847,	'Finlande',	'CK',	'2023-05-03 11:49:41',	'2023-03-17 09:17:20'),
+(848,	'Autriche',	'CU',	'2023-09-21 19:00:33',	'2022-10-27 01:02:35'),
+(849,	'Grèce',	'SI',	'2022-09-18 03:19:03',	'2023-10-12 01:16:38'),
+(850,	'Irlande',	'BE',	'2022-10-16 06:36:22',	'2022-07-18 16:45:11'),
+(851,	'Pologne',	'SJ',	'2023-01-03 22:24:38',	'2024-03-07 20:12:59'),
+(852,	'République tchèque',	'PF',	'2023-12-11 23:09:16',	'2022-08-02 06:03:05'),
+(853,	'Hongrie',	'AG',	'2023-07-16 23:41:29',	'2024-02-20 15:02:45'),
+(854,	'Roumanie',	'CY',	'2024-02-24 04:55:08',	'2024-06-24 13:27:05'),
+(855,	'Bulgarie',	'PG',	'2022-11-23 23:55:11',	'2024-03-05 00:43:24'),
+(856,	'Croatie',	'KY',	'2022-08-02 11:54:08',	'2022-10-20 21:45:04'),
+(857,	'Serbie',	'ME',	'2023-10-05 15:37:47',	'2023-12-31 19:28:39'),
+(858,	'Slovaquie',	'QA',	'2023-11-21 06:13:15',	'2023-07-30 04:33:28'),
+(859,	'Slovénie',	'MT',	'2022-07-01 21:46:57',	'2023-06-18 06:55:00'),
+(860,	'Lituanie',	'CU',	'2023-11-01 10:13:34',	'2022-09-29 00:16:16'),
+(861,	'Lettonie',	'MF',	'2022-08-22 09:33:35',	'2024-06-30 19:05:12'),
+(862,	'Estonie',	'SK',	'2024-06-30 06:01:53',	'2023-04-19 12:20:10'),
+(863,	'Malte',	'GQ',	'2023-02-06 22:30:43',	'2022-12-30 17:59:20'),
+(864,	'Chypre',	'BT',	'2022-12-31 22:14:37',	'2022-07-27 06:42:36'),
+(865,	'Islande',	'CY',	'2022-08-02 13:00:22',	'2023-12-13 06:40:21'),
+(866,	'Andorre',	'BE',	'2022-11-16 06:24:19',	'2023-03-15 04:57:31'),
+(867,	'Liechtenstein',	'EG',	'2023-10-01 09:54:37',	'2024-04-17 23:05:50'),
+(868,	'Saint-Marin',	'DE',	'2023-05-12 18:20:16',	'2023-06-26 00:11:43'),
+(869,	'Vatican',	'SV',	'2024-02-06 12:41:05',	'2022-11-25 08:37:54'),
+(870,	'Albanie',	'EH',	'2023-04-22 14:03:58',	'2023-09-17 19:34:57'),
+(871,	'Monténégro',	'GY',	'2023-03-03 03:10:56',	'2022-09-17 08:12:00'),
+(872,	'Bosnie-Herzégovine',	'SA',	'2023-10-07 20:28:05',	'2023-04-30 03:22:18'),
+(873,	'Macédoine du Nord',	'US',	'2022-10-31 06:29:57',	'2023-02-07 01:25:15'),
+(874,	'Kosovo',	'UA',	'2023-02-15 02:55:46',	'2024-05-11 08:41:29'),
+(875,	'Moldavie',	'VC',	'2022-12-17 19:03:31',	'2023-02-28 14:21:21'),
+(876,	'Ukraine',	'TM',	'2024-06-04 15:29:18',	'2023-06-23 16:18:41'),
+(877,	'Bélarus',	'BG',	'2024-01-02 11:49:20',	'2024-03-04 07:03:02'),
+(878,	'Russie',	'BQ',	'2023-04-15 14:45:33',	'2023-01-18 19:37:49'),
+(879,	'Turquie',	'TF',	'2022-10-02 01:27:16',	'2023-07-13 05:19:48')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`), `code` = VALUES(`code`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`);
+
+
+INSERT INTO `quantity` (`id`, `habitat_id`, `quantity`, `unit`, `option_id`) VALUES
+(34,	299,	138,	'Capitelle',	934),
+(35,	299,	229,	'Étage',	933),
+(36,	300,	1,	'Pigeonnier',	938),
+(37,	300,	72,	'Cabanon',	922),
+(38,	300,	236,	'Paillote',	924),
+(39,	301,	41,	'Étage',	930),
+(40,	301,	210,	'Mezzanine',	933),
+(41,	301,	163,	'Tente',	929),
+(42,	301,	102,	'Cabane',	931),
+(43,	301,	7,	'm³',	938),
+(44,	302,	45,	'Péniche',	926),
+(45,	302,	108,	'Paillote',	935),
+(46,	302,	15,	'Cabane',	939),
+(47,	302,	57,	'Étage',	922),
+(48,	302,	17,	'Bulle',	925),
+(49,	303,	85,	'Cabanon',	930),
+(50,	303,	199,	'm³',	922),
+(51,	303,	172,	'm²',	933),
+(52,	303,	83,	'Igloo',	936),
+(53,	304,	1,	'Igloo',	927),
+(54,	304,	2,	'Capitelle',	930),
+(55,	304,	85,	'Moulin',	936),
+(56,	304,	79,	'Tourelle',	931),
+(57,	305,	2,	'Igloo',	927),
+(58,	305,	173,	'Troglodyte',	934),
+(59,	305,	4,	'Roulotte',	936),
+(60,	305,	194,	'Pigeonnier',	928),
+(61,	305,	44,	'Igloo',	926),
+(62,	306,	34,	'Étage',	929),
+(63,	306,	192,	'Cabanon',	937),
+(64,	306,	147,	'Cabanon',	936),
+(65,	306,	8,	'm²',	932),
+(66,	307,	219,	'Tente',	934),
+(67,	307,	242,	'Tipi',	929)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `habitat_id` = VALUES(`habitat_id`), `quantity` = VALUES(`quantity`), `unit` = VALUES(`unit`), `option_id` = VALUES(`option_id`);
+
+INSERT INTO `user` (`id`, `username`, `roles`, `password`, `email`, `is_verified`, `api_token`, `profile_id`) VALUES
+(94,	'user5',	'[]',	'$2y$13$Dwu.30UX2O5.CpD9PjE3JOUjO4xVUiEEFNX43DHJaEDbmcMUqI3b2',	'user5@atph.fr',	1,	'user5',	NULL),
+(95,	'user2',	'[]',	'$2y$13$ofPgqdjpnCj1Oe7zJRpd4eMlbn1B5S4385isRBhzLbWxn7Gxei2IK',	'user2@atph.fr',	1,	'user2',	NULL),
+(96,	'user3',	'[]',	'$2y$13$Iz88R.uZqsul0k6XC2Uy5uUxoEO8MaHhPH80AXuzR1nzocXeEWpaK',	'user3@atph.fr',	1,	'user3',	NULL),
+(97,	'user1',	'[]',	'$2y$13$.TJ08tDMJ0OZsHq3KlKKLuL1M/IX1cc7Py8Suq0b87i3gAp4OhPba',	'user@atph.fr',	1,	'user4',	NULL),
+(98,	'admin',	'[\"ROLE_ADMIN\"]',	'$2y$13$CWpUPVyx86Q7zyeRH6QBFecjyRn3PTi7bjP85FlW7szrGH2b0nV8C',	'user1@atph.fr',	1,	'user1',	NULL),
+(99,	'user7',	'[]',	'$2y$13$C8jquYppEnf5ekaIAyXmcuDZaQUB4fKDpT.a2VWDqALmB5KMbyqe6',	'user7@atph.fr',	1,	'user7azerty',	NULL)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `username` = VALUES(`username`), `roles` = VALUES(`roles`), `password` = VALUES(`password`), `email` = VALUES(`email`), `is_verified` = VALUES(`is_verified`), `api_token` = VALUES(`api_token`), `profile_id` = VALUES(`profile_id`);
+
+INSERT INTO `ville` (`id`, `name`, `pays_id`, `slug`, `created_at`, `updated_at`, `latitude`, `longitude`) VALUES
+(817,	'Paris',	835,	'',	'2024-03-21 02:24:48',	'2022-12-29 15:02:28',	-73.1141210,	-131.9594210),
+(818,	'Bruxelles',	836,	'',	'2023-10-18 03:28:53',	'2023-09-15 16:59:23',	1.5345110,	50.9377550),
+(819,	'Genève',	837,	'',	'2023-11-06 13:40:58',	'2023-06-21 02:43:11',	14.6868360,	67.9167700),
+(820,	'Madrid',	838,	'',	'2024-05-04 17:20:52',	'2022-12-18 18:26:27',	13.8280910,	70.6531450),
+(821,	'Rome',	839,	'',	'2023-06-27 09:48:11',	'2023-02-11 04:19:47',	-33.1009860,	-10.5973860),
+(822,	'Berlin',	840,	'',	'2024-04-07 01:05:31',	'2022-11-23 00:42:22',	14.2818260,	-136.0137920),
+(823,	'Londres',	841,	'',	'2023-11-13 20:40:33',	'2024-03-20 17:58:51',	87.3859880,	114.9340150),
+(824,	'Lisbonne',	842,	'',	'2023-10-11 20:47:21',	'2023-09-28 21:30:29',	-82.7556700,	-159.6947770),
+(825,	'Amsterdam',	843,	'',	'2023-07-28 14:14:34',	'2022-11-02 20:20:37',	-35.7280290,	42.6985000),
+(826,	'Stockholm',	844,	'',	'2023-02-14 17:13:11',	'2023-05-07 07:28:30',	23.0591060,	-44.2083350),
+(827,	'Oslo',	845,	'',	'2023-11-20 19:46:28',	'2022-09-07 16:33:19',	17.6167710,	-161.5270960),
+(828,	'Copenhague',	846,	'',	'2022-12-08 01:51:55',	'2023-12-18 18:47:23',	65.0761300,	-145.0840210),
+(829,	'Helsinki',	847,	'',	'2024-04-12 15:08:59',	'2023-01-26 10:40:16',	70.0595360,	-45.6780050),
+(830,	'Vienne',	848,	'',	'2024-06-20 09:15:59',	'2023-01-01 22:43:05',	-38.5681850,	167.4685860),
+(831,	'Athènes',	849,	'',	'2023-08-16 03:38:08',	'2022-07-23 14:02:43',	67.9989080,	-6.0196160),
+(832,	'Dublin',	850,	'',	'2023-11-29 04:48:21',	'2023-12-08 15:19:24',	61.5876010,	69.8374420),
+(833,	'Varsovie',	851,	'',	'2022-07-12 23:59:38',	'2022-08-16 21:55:23',	-50.9200600,	130.3818130),
+(834,	'Prague',	852,	'',	'2022-12-02 17:01:57',	'2023-11-11 12:38:47',	-70.2221310,	63.5829890),
+(835,	'Budapest',	853,	'',	'2022-11-30 08:27:30',	'2023-11-03 19:03:50',	-80.2917420,	72.0023760),
+(836,	'Bucarest',	854,	'',	'2024-06-04 20:56:29',	'2022-07-21 09:27:17',	-49.0302430,	-33.8569890),
+(837,	'Sofia',	855,	'',	'2022-07-07 14:29:54',	'2023-05-21 01:34:10',	-38.7010020,	77.3203440),
+(838,	'Zagreb',	856,	'',	'2024-06-06 10:07:37',	'2022-10-20 09:00:50',	68.6107760,	133.2050840),
+(839,	'Belgrade',	857,	'',	'2022-11-13 07:48:06',	'2023-11-09 01:26:01',	-43.1907230,	106.6681810),
+(840,	'Bratislava',	858,	'',	'2023-12-12 09:35:36',	'2024-03-26 20:13:01',	-66.6559570,	68.6546150),
+(841,	'Ljubljana',	859,	'',	'2023-07-19 03:31:50',	'2023-06-29 22:55:24',	22.3383210,	-33.3857760),
+(842,	'Vilnius',	860,	'',	'2022-08-30 20:52:47',	'2022-10-01 03:06:14',	-39.7189710,	-107.2287760),
+(843,	'Riga',	861,	'',	'2024-05-24 22:55:20',	'2022-07-02 15:19:39',	89.7311950,	103.7962280),
+(844,	'Tallinn',	862,	'',	'2022-12-20 06:27:17',	'2022-09-04 16:03:46',	79.0328880,	-99.7819180),
+(845,	'La Valette',	863,	'',	'2023-11-08 07:22:24',	'2022-08-02 09:33:34',	-49.0020180,	-58.0352900),
+(846,	'Nicosie',	864,	'',	'2022-08-05 06:50:59',	'2023-12-09 19:34:55',	13.6149970,	-55.4942260),
+(847,	'Reykjavik',	865,	'',	'2022-12-30 03:17:23',	'2023-10-16 17:11:44',	-42.4632150,	161.5378090),
+(848,	'Andorre-la-Vieille',	866,	'',	'2023-05-15 14:05:15',	'2023-08-01 03:31:36',	66.7087920,	123.3530400),
+(849,	'Vaduz',	867,	'',	'2024-06-10 09:10:50',	'2023-09-27 21:21:21',	53.3107940,	-175.1122340),
+(850,	'Tirana',	870,	'',	'2023-02-13 00:39:46',	'2024-01-25 07:31:08',	-32.7290480,	99.7145640),
+(851,	'Podgorica',	871,	'',	'2023-11-02 18:53:29',	'2022-08-11 00:53:10',	12.2171450,	-134.3934800),
+(852,	'Sarajevo',	872,	'',	'2022-11-21 03:23:38',	'2023-01-08 13:55:30',	76.6613680,	61.7612500),
+(853,	'Skopje',	873,	'',	'2022-11-23 23:56:46',	'2022-12-18 23:32:55',	-40.5464030,	-103.7918610),
+(854,	'Pristina',	874,	'',	'2022-09-28 12:24:32',	'2022-07-29 11:27:11',	-22.9174020,	-89.1514210),
+(855,	'Chisinau',	875,	'',	'2023-11-28 21:13:49',	'2022-08-02 07:25:32',	-23.7955130,	165.2968570),
+(856,	'Kiev',	876,	'',	'2023-09-26 12:42:29',	'2023-04-14 15:33:45',	83.7212690,	-108.7568580),
+(857,	'Minsk',	877,	'',	'2024-06-18 13:49:51',	'2023-09-09 01:53:13',	51.4634830,	7.3063270),
+(858,	'Moscou',	878,	'',	'2023-03-10 14:57:42',	'2024-01-17 20:49:25',	54.0773970,	-117.7436410),
+(859,	'Ankara',	879,	'',	'2022-07-21 23:58:36',	'2023-10-09 06:59:55',	-27.1610270,	-76.6515270)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `name` = VALUES(`name`), `pays_id` = VALUES(`pays_id`), `slug` = VALUES(`slug`), `created_at` = VALUES(`created_at`), `updated_at` = VALUES(`updated_at`), `latitude` = VALUES(`latitude`), `longitude` = VALUES(`longitude`);
+
+-- 2024-07-12 22:58:35

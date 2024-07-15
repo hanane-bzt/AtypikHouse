@@ -12,6 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: HabitatRepository::class)]
 #[UniqueEntity('title')]
@@ -22,6 +24,8 @@ class Habitat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['habitats.index'])]
+
     private ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
@@ -30,33 +34,40 @@ class Habitat
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[BanWord]
+    #[Groups(['habitats.index','habitats.create'])]
     private string $title = '';
     
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10)]
+    #[Groups(['habitats.index','habitats.create'])]
     private string $address = '';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Type(type: 'numeric', message: 'La capacité doit être un nombre')]
     #[Assert\NotBlank(message: 'La capacité ne peut pas être vide')]
     #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
+    #[Groups(['habitats.show','habitats.create'])]
     private ?string $capacity = '';
 
     #[ORM\Column]
     #[Assert\NotBlank()]
     #[Assert\Positive()]
+    #[Groups(['habitats.index','habitats.create'])]
     private ?int $nombreDeCouchage = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Positive()]
     #[Assert\LessThan(value: 2000)]
+    #[Groups(['habitats.index','habitats.create'])]
     private string $price = '';
 
     #[ORM\Column]
+    #[Groups(['habitats.index','habitats.create'])]
     private ?bool $en_vente = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 15)]
+    #[Groups(['habitats.show','habitats.create'])]
     private string $content = '';
 
     #[ORM\Column]
@@ -68,9 +79,11 @@ class Habitat
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
+    #[Groups(['habitats.index','habitats.create'])]
     private string $slug = '';
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['habitats.show'])]
     private ?string $file = null;
 
     #[Vich\UploadableField(mapping: 'habitats', fileNameProperty: 'file')]
@@ -78,15 +91,17 @@ class Habitat
     private ?File $thumbnailFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
+    #[Groups(['habitats.show'])]
     private ?Category $category = null;
 
-    // #[ORM\ManyToOne(inversedBy: 'options', cascade: ['persist'])]    
+    // #[ORM\ManyToOne(inversedBy: 'options', cascade: [' persist'])]    
     // private ?Option $option = null;
 
     #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
 // /**
 //  * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", onDelete="SET NULL")
 //  */
+#[Groups(['habitats.show'])]
 private ?Ville $ville = null;
 
 
