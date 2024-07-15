@@ -3,15 +3,12 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-<<<<<<< HEAD
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
 /AtypikHouse.code-workspace
 ###< symfony/framework-bundle ###
-=======
->>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
 
 # Ignorer les secrets de production
 /config/secrets/prod/prod.decrypt.private.php
@@ -29,7 +26,6 @@
 .phpunit.result.cache
 /phpunit.xml
 
-<<<<<<< HEAD
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
@@ -46,7 +42,6 @@ yarn-error.log
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-=======
 # Ignorer les fichiers spécifiques à l'IDE
 .vscode/
->>>>>>> f6da19d8a27d760c4cd757fc4d9a593ea6094f61
+.atypikhousebd.sql

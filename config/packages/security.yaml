@@ -7,24 +7,37 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        fournisseur_username:
             entity:
                 class: App\Entity\User
                 property: username
-        # used to reload user from session & other features (e.g. switch_user)
+        fournisseur_api_token:
+            entity:
+                class: App\Entity\User
+                property: api_token
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            provider: fournisseur_api_token
+            custom_authenticator: App\Security\APIAuthenticator
+            stateless: true
+            lazy: true
         main:
             lazy: true
-            provider: app_user_provider
+            provider: fournisseur_username
             custom_authenticator: App\Security\AtypikAuthenticator
+            # autres configurations...
+
             logout:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+            json_login:
+                check_path: /api/login
 
             remember_me:
                 secret: '%kernel.secret%'
