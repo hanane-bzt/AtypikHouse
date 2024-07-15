@@ -45,3 +45,5 @@ yarn-error.log
 # Ignorer les fichiers spécifiques à l'IDE
 .vscode/
 .atypikhousebd.sql
+
+/node_modules
