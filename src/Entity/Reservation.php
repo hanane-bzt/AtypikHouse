@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: 'App\Repository\ReservationRepository')]
 #[ORM\Table(name: 'reservations')]
 class Reservation
 {
@@ -35,7 +35,14 @@ class Reservation
     #[Assert\Positive]
     private float $totalPrice;
 
-    // getters and setters
+    #[ORM\Column(type: 'boolean')]
+    private bool $isPaid = false;
+
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'reservation')]
+    private $comments;
+
+    #[ORM\ManyToOne(targetEntity: Payment::class)]
+    private ?Payment $payment = null;
 
     public function getId(): ?int
     {
@@ -98,6 +105,42 @@ class Reservation
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getIsPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): self
+    {
+        $this->payment = $payment;
 
         return $this;
     }

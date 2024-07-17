@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Reservations</h1>
+{% block title 'Toutes les réservations' %}
 
-    <table>
+{% block body %}
+    <h1>Toutes les réservations</h1>
+    
+    <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>User</th>
+                <th>Utilisateur</th>
                 <th>Habitat</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Total Price</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Prix total</th>
+                <th>Payé</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for reservation in reservations %}
+            {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.id }}</td>
                 <td>{{ reservation.user.username }}</td>
@@ -23,8 +27,17 @@
                 <td>{{ reservation.startDate|date('Y-m-d H:i') }}</td>
                 <td>{{ reservation.endDate|date('Y-m-d H:i') }}</td>
                 <td>{{ reservation.totalPrice }}</td>
+                <td>{{ reservation.isPaid ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('reservation_show', {id: reservation.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('reservation_edit', {id: reservation.id}) }}" class="btn btn-primary btn-sm">Editer</a>
+                    <form action="{{ path('reservation_delete', {id: reservation.id}) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
