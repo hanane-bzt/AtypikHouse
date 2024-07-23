@@ -20,7 +20,7 @@ class Payment
     private \DateTimeInterface $paymentDate;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $amount;
+    private string $amount;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $paymentMethod;
@@ -59,12 +59,12 @@ class Payment
         return $this;
     }
 
-    public function getAmount(): ?float
+    public function getAmount(): ?string
     {
         return $this->amount;
     }
 
-    public function setAmount(float $amount): self
+    public function setAmount(string $amount): self
     {
         $this->amount = $amount;
 

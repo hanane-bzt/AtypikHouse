@@ -38,10 +38,7 @@ class Option
     #[ORM\ManyToMany(targetEntity: Habitat::class, mappedBy: 'options')]
     private Collection $habitats;
 
-    /**
-     * @var Collection<int, Quantity>
-     */
-    #[ORM\OneToMany(targetEntity: Quantity::class, mappedBy: 'commodite')]
+    #[ORM\OneToMany(mappedBy: 'option', targetEntity: Quantity::class)]
     private Collection $quantities;
 
     public function __construct()
@@ -65,7 +62,6 @@ class Option
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -77,7 +73,6 @@ class Option
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -89,7 +84,6 @@ class Option
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -101,7 +95,6 @@ class Option
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -131,7 +124,6 @@ class Option
 
         return $this;
     }
-
 
     public function __toString(): string
     {

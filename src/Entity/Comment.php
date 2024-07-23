@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\CommentRepository')]
 class Comment
@@ -16,7 +18,7 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Reservation::class)]
+    #[ORM\ManyToOne(targetEntity: Reservation::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Reservation $reservation = null;
 
@@ -26,7 +28,12 @@ class Comment
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    // Getters and setters
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    // Getters and setters...
 
     public function getId(): ?int
     {
@@ -41,7 +48,6 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -53,7 +59,6 @@ class Comment
     public function setReservation(?Reservation $reservation): self
     {
         $this->reservation = $reservation;
-
         return $this;
     }
 
@@ -65,7 +70,6 @@ class Comment
     public function setContent(string $content): self
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -77,7 +81,6 @@ class Comment
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 }

@@ -6,9 +6,9 @@ use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Habitat;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,7 +29,9 @@ class ReservationType extends AbstractType
             ->add('startDate', DateTimeType::class)
             ->add('endDate', DateTimeType::class)
             ->add('totalPrice', MoneyType::class)
-            ;
+            ->add('isPaid', CheckboxType::class, [
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

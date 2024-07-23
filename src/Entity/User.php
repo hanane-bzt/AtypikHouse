@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,42 +9,39 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
+#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
+#[ORM\Table(name: 'user')]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $username = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(type: 'boolean')]
     private bool $isVerified = false;
 
-    #[ORM\Column(length: 255, nullable: false, options: ['default' => ''])]
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private ?string $api_token = '';
 
-    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Habitat::class)]
     private Collection $habitats;
 
-    #[ORM\OneToOne(targetEntity: Profile::class, inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Profile $profile = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
     public function __construct()
@@ -64,10 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): static
+    public function setUsername(string $username): self
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -85,17 +80,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $roles[] = 'ROLE_VERIFIED';
         }
 
-        if ($this->email === 'benou@bni.fr') {
-            $roles[] = 'ROLE_ADMIN';
-        }
-
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -104,15 +94,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
-    }
-
-    public function eraseCredentials(): void
-    {
     }
 
     public function getEmail(): ?string
@@ -120,10 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -132,10 +116,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): static
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
         return $this;
     }
 
@@ -144,11 +127,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->api_token;
     }
 
-    public function setApiToken(string $api_token): ?static
+    public function setApiToken(string $api_token): self
     {
         $this->api_token = $api_token;
-
         return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Si vous stockez des données sensibles temporaires sur l'utilisateur, effacez-les ici
     }
 
     public function getHabitats(): Collection
@@ -156,35 +143,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->habitats;
     }
 
-    public function addHabitat(Habitat $habitat): static
+    public function addHabitat(Habitat $habitat): self
     {
         if (!$this->habitats->contains($habitat)) {
-            $this->habitats->add($habitat);
+            $this->habitats[] = $habitat;
             $habitat->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeHabitat(Habitat $habitat): static
+    public function removeHabitat(Habitat $habitat): self
     {
         if ($this->habitats->removeElement($habitat)) {
             if ($habitat->getUser() === $this) {
                 $habitat->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): static
-    {
-        $this->profile = $profile;
 
         return $this;
     }

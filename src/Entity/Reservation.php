@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,7 +19,7 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Habitat::class)]
+    #[ORM\ManyToOne(targetEntity: Habitat::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Habitat $habitat = null;
 
@@ -38,11 +39,18 @@ class Reservation
     #[ORM\Column(type: 'boolean')]
     private bool $isPaid = false;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'reservation')]
-    private $comments;
+    #[ORM\OneToMany(mappedBy: 'reservation', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
+    private Collection $comments;
 
     #[ORM\ManyToOne(targetEntity: Payment::class)]
     private ?Payment $payment = null;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
+    // Getters and setters...
 
     public function getId(): ?int
     {
@@ -57,7 +65,6 @@ class Reservation
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -69,7 +76,6 @@ class Reservation
     public function setHabitat(?Habitat $habitat): self
     {
         $this->habitat = $habitat;
-
         return $this;
     }
 
@@ -81,7 +87,6 @@ class Reservation
     public function setStartDate(\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
-
         return $this;
     }
 
@@ -93,7 +98,6 @@ class Reservation
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
-
         return $this;
     }
 
@@ -105,30 +109,46 @@ class Reservation
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
-
         return $this;
     }
 
-    public function getIsPaid(): bool
+    public function isPaid(): bool
     {
         return $this->isPaid;
     }
 
-    public function setIsPaid(bool $isPaid): self
+    public function setPaid(bool $isPaid): self
     {
         $this->isPaid = $isPaid;
-
         return $this;
     }
 
-    public function getComments()
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        $this->comments[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setReservation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getReservation() === $this) {
+                $comment->setReservation(null);
+            }
+        }
 
         return $this;
     }
@@ -141,7 +161,6 @@ class Reservation
     public function setPayment(?Payment $payment): self
     {
         $this->payment = $payment;
-
         return $this;
     }
 }

@@ -33,6 +33,7 @@
                     <a href="{{ path('reservation_edit', {id: reservation.id}) }}" class="btn btn-primary btn-sm">Editer</a>
                     <form action="{{ path('reservation_delete', {id: reservation.id}) }}" method="post" style="display:inline;">
                         <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
                         <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                     </form>
                 </td>

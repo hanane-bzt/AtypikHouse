@@ -54,12 +54,13 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'reservation_show', methods: ['GET'])]
-    public function show(Reservation $reservation): Response
-    {
-        return $this->render('reservation/show.html.twig', [
-            'reservation' => $reservation,
-        ]);
-    }
+public function show(Reservation $reservation): Response
+{
+    return $this->render('reservation/show.html.twig', [
+        'reservation' => $reservation,
+    ]);
+}
+
 
     #[Route('/{id}/edit', name: 'reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, EntityManagerInterface $em): Response
@@ -79,7 +80,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'reservation_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'reservation_delete', methods: ['DELETE'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
@@ -89,4 +90,5 @@ class ReservationController extends AbstractController
 
         return $this->redirectToRoute('reservation_index');
     }
+
 }
