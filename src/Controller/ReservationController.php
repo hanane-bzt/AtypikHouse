@@ -1,12 +1,14 @@
 <?php
 
+// src/Controller/ReservationController.php
+
 namespace App\Controller;
 
 use App\Entity\Reservation;
-use App\Entity\Habitat;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
-use App\Repository\HabitatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,18 +27,9 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/new', name: 'reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, HabitatRepository $habitatRepository): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $reservation = new Reservation();
-        $habitatId = $request->query->get('habitatId');
-
-        if ($habitatId) {
-            $habitat = $habitatRepository->find($habitatId);
-            if ($habitat) {
-                $reservation->setHabitat($habitat);
-            }
-        }
-
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
@@ -53,14 +46,28 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'reservation_show', methods: ['GET'])]
-public function show(Reservation $reservation): Response
-{
-    return $this->render('reservation/show.html.twig', [
-        'reservation' => $reservation,
-    ]);
-}
+    #[Route('/{id}', name: 'reservation_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Reservation $reservation, EntityManagerInterface $em): Response
+    {
+        $comment = new Comment();
+        $comment->setReservation($reservation);
+        $comment->setUser($this->getUser());
+        
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('reservation_show', ['id' => $reservation->getId()]);
+        }
+
+        return $this->render('reservation/show.html.twig', [
+            'reservation' => $reservation,
+            'form' => $form->createView(),
+        ]);
+    }
 
     #[Route('/{id}/edit', name: 'reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, EntityManagerInterface $em): Response
@@ -80,7 +87,7 @@ public function show(Reservation $reservation): Response
         ]);
     }
 
-    #[Route('/{id}', name: 'reservation_delete', methods: ['DELETE'])]
+    #[Route('/{id}', name: 'reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
@@ -90,5 +97,4 @@ public function show(Reservation $reservation): Response
 
         return $this->redirectToRoute('reservation_index');
     }
-
 }
