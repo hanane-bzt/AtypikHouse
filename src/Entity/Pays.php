@@ -3,18 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CountryRepository;
-use App\Validator\BanWord;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Serializer\Annotation\Groups;
-
-
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
 #[UniqueEntity('name')]
@@ -32,12 +26,6 @@ class Pays
     #[Groups(['pays.index','pays.create'])]
     private string $name = '';
 
-    // #[ORM\Column(length: 255)]
-    // #[Assert\Length(min: 3)]
-    // #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', message: "Le slug ne peut contenir que des lettres minuscules, des chiffres et des tirets")]
-    //  private string $slug = '';
-
-    
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2)]
     #[Groups(['pays.index','pays.create'])]
@@ -49,18 +37,14 @@ class Pays
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-
-
     #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Ville::class, cascade: ['remove'])]
-    private Collection $countries;
+    private Collection $villes;
 
-     public function __construct()
-     {
-         $this->countries = new ArrayCollection();
-     }
-     /** */
+    public function __construct()
+    {
+        $this->villes = new ArrayCollection();
+    }
 
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -74,7 +58,6 @@ class Pays
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -86,7 +69,6 @@ class Pays
     public function setCode(string $code): static
     {
         $this->code = $code;
-
         return $this;
     }
 
@@ -98,7 +80,6 @@ class Pays
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -110,7 +91,6 @@ class Pays
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -119,13 +99,13 @@ class Pays
      */
     public function getVilles(): Collection
     {
-        return $this->countries;
+        return $this->villes;
     }
 
     public function addVille(Ville $ville): static
     {
-        if (!$this->countries->contains($ville)) {
-            $this->countries->add($ville);
+        if (!$this->villes->contains($ville)) {
+            $this->villes->add($ville);
             $ville->setPays($this);
         }
 
@@ -134,7 +114,7 @@ class Pays
 
     public function removeVille(Ville $ville): static
     {
-        if ($this->countries->removeElement($ville)) {
+        if ($this->villes->removeElement($ville)) {
             // set the owning side to null (unless already changed)
             if ($ville->getPays() === $this) {
                 $ville->setPays(null);

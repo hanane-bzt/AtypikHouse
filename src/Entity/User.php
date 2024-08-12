@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,58 +9,39 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
+#[ORM\Entity(repositoryClass: 'App\Repository\UserRepository')]
+#[ORM\Table(name: 'user')]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $username = null;
 
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private bool $isVerified = false;
 
-    
-    #[ORM\Column(length: 255, nullable: false, options: ['default' => ''])]
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
     private ?string $api_token = '';
-    
 
-
-    // #[ORM\Column(length: 255, nullable: true)]
-    // private ?string $api_token = null;
-
-    /**
-     * @var Collection<int, Habitat>
-     */
-    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Habitat::class)]
     private Collection $habitats;
 
-    #[ORM\OneToOne(targetEntity: Profile::class,inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Profile $profile = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
     public function __construct()
@@ -80,80 +60,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): static
+    public function setUsername(string $username): self
     {
         $this->username = $username;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
     }
 
-   
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
-        if($this->isVerified){
+        if ($this->isVerified) {
             $roles[] = 'ROLE_VERIFIED';
         }
-
-        if($this->email==='benou@bni.fr'){
-            $roles[] = 'ROLE_ADMIN';
-        }
-    
-    
 
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -161,10 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -173,10 +116,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): static
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
-
         return $this;
     }
 
@@ -185,35 +127,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->api_token;
     }
 
-    public function setApiToken(string $api_token): ?static
+    public function setApiToken(string $api_token): self
     {
         $this->api_token = $api_token;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Habitat>
-     */
+    public function eraseCredentials(): void
+    {
+        // Si vous stockez des données sensibles temporaires sur l'utilisateur, effacez-les ici
+    }
+
     public function getHabitats(): Collection
     {
         return $this->habitats;
     }
 
-    public function addHabitat(Habitat $habitat): static
+    public function addHabitat(Habitat $habitat): self
     {
         if (!$this->habitats->contains($habitat)) {
-            $this->habitats->add($habitat);
+            $this->habitats[] = $habitat;
             $habitat->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeHabitat(Habitat $habitat): static
+    public function removeHabitat(Habitat $habitat): self
     {
         if ($this->habitats->removeElement($habitat)) {
-            // set the owning side to null (unless already changed)
             if ($habitat->getUser() === $this) {
                 $habitat->setUser(null);
             }
@@ -222,21 +164,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): static
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
     public function getReservations(): Collection
     {
         return $this->reservations;
@@ -255,7 +182,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeReservation(Reservation $reservation): self
     {
         if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
             if ($reservation->getUser() === $this) {
                 $reservation->setUser(null);
             }

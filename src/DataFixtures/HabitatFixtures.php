@@ -179,22 +179,24 @@ class HabitatFixtures extends Fixture implements DependentFixtureInterface
                 ->setEnVente($faker->boolean)
                 ->setContent($faker->paragraphs(10, true))
                 ->setCategory($this->getReference($faker->randomElement($categories)))
-               //->addOption($this->getReference($faker->randomElement($options)))
-                ->setUser($this->getReference ('USER'. $faker->numberBetween(1, 9)))
+                ->setUser($this->getReference('USER' . $faker->numberBetween(1, 9)))
                 ->setUpdatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTime()))
                 ->setVille($this->getReference($faker->randomElement(array_keys($villesMapping))))
                 ->setSlug($this->slugger->slug($title));
-
-                foreach($faker->randomElements($options, $faker->numberBetween(2, 5)) as $option) {
-                    $habitat->addQuantity((new Quantity())
+        
+            foreach ($faker->randomElements($options, $faker->numberBetween(2, 5)) as $option) {
+                $habitat->addQuantity((new Quantity())
                     ->setQuantity($faker->numberBetween(1, 250))
                     ->setUnit($faker->randomElement($units))
                     ->setOption($option)
-                    );
-                    }
+                );
+            }
+        
             $manager->persist($habitat);
+            $this->addReference('habitat_' . $i, $habitat); 
         }
+        
 
         $manager->flush();
     }

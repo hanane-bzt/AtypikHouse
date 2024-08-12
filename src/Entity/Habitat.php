@@ -4,16 +4,15 @@ namespace App\Entity;
 
 use App\Repository\HabitatRepository;
 use App\Validator\BanWord;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 
 #[ORM\Entity(repositoryClass: HabitatRepository::class)]
 #[UniqueEntity('title')]
@@ -25,18 +24,14 @@ class Habitat
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['habitats.index'])]
-
     private ?int $id = null;
-
-    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
-    private Collection $reservations;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 5)]
     #[BanWord]
     #[Groups(['habitats.index','habitats.create'])]
     private string $title = '';
-    
+
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10)]
     #[Groups(['habitats.index','habitats.create'])]
@@ -93,41 +88,33 @@ class Habitat
     #[Groups(['habitats.index','habitats.create'])]
     private ?Category $category = null;
 
-    // #[ORM\ManyToOne(inversedBy: 'options', cascade: [' persist'])]    
-    // private ?Option $option = null;
-    #[Groups(['habitats.index','habitats.create'])]
-    #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
-// /**
-//  * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", onDelete="SET NULL")
-//  */
-private ?Ville $ville = null;
+    #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
+    #[Groups(['habitats.show'])]
+    private ?Ville $ville = null;
 
-
-    // #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
-    // private Collection $options;
-
-    #[ORM\ManyToMany(targetEntity: Option::class)]
+    #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'habitats')]
+    #[ORM\JoinTable(name: 'habitat_option')]
     private Collection $options;
     
 
     #[Groups(['habitats.index','habitats.create'])]
+
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?User $user = null;
 
-    /**
-     * @var Collection<int, Quantity>
-     */
-    #[ORM\OneToMany(targetEntity: Quantity::class, mappedBy: 'habitat', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Reservation::class, cascade: ['persist', 'remove'])]
+    private Collection $reservations;
+
+    #[ORM\OneToMany(mappedBy: 'habitat', targetEntity: Quantity::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $quantities;
 
     public function __construct()
     {
+        $this->reservations = new ArrayCollection();
         $this->options = new ArrayCollection();
+        $this->quantities = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
-        $this->quantities = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-        
     }
 
     public function getId(): ?int
@@ -143,7 +130,6 @@ private ?Ville $ville = null;
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -155,7 +141,6 @@ private ?Ville $ville = null;
     public function setCapacity(string $capacity): static
     {
         $this->capacity = $capacity;
-
         return $this;
     }
 
@@ -167,7 +152,6 @@ private ?Ville $ville = null;
     public function setNombreDeCouchage(int $nombreDeCouchage): static
     {
         $this->nombreDeCouchage = $nombreDeCouchage;
-
         return $this;
     }
 
@@ -179,7 +163,6 @@ private ?Ville $ville = null;
     public function setPrice(string $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 
@@ -191,7 +174,6 @@ private ?Ville $ville = null;
     public function setEnVente(bool $en_vente): static
     {
         $this->en_vente = $en_vente;
-
         return $this;
     }
 
@@ -203,7 +185,6 @@ private ?Ville $ville = null;
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -215,7 +196,6 @@ private ?Ville $ville = null;
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -227,7 +207,6 @@ private ?Ville $ville = null;
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -239,7 +218,6 @@ private ?Ville $ville = null;
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -251,7 +229,6 @@ private ?Ville $ville = null;
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -263,7 +240,6 @@ private ?Ville $ville = null;
     public function setFile(?string $file): static
     {
         $this->file = $file;
-
         return $this;
     }
 
@@ -275,7 +251,6 @@ private ?Ville $ville = null;
     public function setThumbnailFile(?File $thumbnailFile): static
     {
         $this->thumbnailFile = $thumbnailFile;
-
         return $this;
     }
 
@@ -287,7 +262,6 @@ private ?Ville $ville = null;
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -299,7 +273,6 @@ private ?Ville $ville = null;
     public function setVille(?Ville $ville): static
     {
         $this->ville = $ville;
-
         return $this;
     }
 
@@ -323,7 +296,6 @@ private ?Ville $ville = null;
     public function removeOption(Option $option): self
     {
         $this->options->removeElement($option);
-
         return $this;
     }
 
@@ -335,9 +307,9 @@ private ?Ville $ville = null;
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
+
     /**
      * @return Collection<int, Reservation>
      */
@@ -389,7 +361,6 @@ private ?Ville $ville = null;
     public function removeQuantity(Quantity $quantity): static
     {
         if ($this->quantities->removeElement($quantity)) {
-            // set the owning side to null (unless already changed)
             if ($quantity->getHabitat() === $this) {
                 $quantity->setHabitat(null);
             }

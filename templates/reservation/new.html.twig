@@ -1,17 +1,35 @@
-{# templates/reservation/new.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Create a New Reservation{% endblock %}
+{% block title 'Nouvelle réservation' %}
 
 {% block body %}
-    <h1>Create a New Reservation</h1>
+    <h1>Nouvelle réservation</h1>
 
     {{ form_start(form) }}
-        {{ form_row(form.startDate) }}
-        {{ form_row(form.endDate) }}
-        {{ form_row(form.totalPrice) }}
-
-        <button type="submit" class="btn btn-primary">Create Reservation</button>
+        <div class="form-group">
+            {{ form_label(form.user) }}
+            {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.habitat) }}
+            {{ form_widget(form.habitat, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.startDate) }}
+            {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.endDate) }}
+            {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.totalPrice) }}
+            {{ form_widget(form.totalPrice, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.isPaid) }}
+            {{ form_widget(form.isPaid, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button type="submit" class="btn btn-success">Réserver</button>
     {{ form_end(form) }}
 {% endblock %}
