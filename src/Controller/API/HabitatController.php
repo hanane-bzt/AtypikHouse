@@ -1,8 +1,10 @@
 <?php
 namespace App\Controller\API;
 
+use App\DTO\HabitatDTO as DTOHabitatDTO;
 use App\DTO\PaginationDTO;
 use App\Entity\Habitat;
+use App\Entity\HabitatDTO;
 use App\Repository\HabitatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,23 +18,25 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
+#[Route('/api/habitats', name: 'api_habitats_')]
 class HabitatController extends AbstractController
 {
-    #[Route("/api/habitats", name: "api_habitats_index", methods: ['GET'])]
+    public function __construct(private EntityManagerInterface $entityManager) {}
+
+    #[Route('', name: 'index', methods: ['GET'])]
     public function index(Request $request, HabitatRepository $repository): JsonResponse
     {
         $page = $request->query->getInt('page', 1); // Récupère la page de la requête, par défaut 1
-        $paginationDTO = new PaginationDTO($page); // Créez un DTO de pagination si nécessaire
-    
-        $habitats = $repository->paginateHabitats($paginationDTO->page);
-    
+        $userId = $request->query->get('userId'); // Récupère l'userId s'il est fourni
+
+        $habitats = $repository->paginateHabitats($page, $userId);
+
         return $this->json($habitats, 200, [], [
             'groups' => ['habitats.index']
         ]);
     }
 
-    #[Route("/api/habitats/{id}", name: "api_habitats_show", requirements: ['id' => Requirement::DIGITS], methods: ['GET'])]
+    #[Route('/{id}',name: 'show',requirements: ['id' => Requirement::DIGITS], methods: ['GET'])]
     public function show(Habitat $habitat)
     {
         if (!$habitat) {
@@ -45,7 +49,7 @@ class HabitatController extends AbstractController
     }
 
     
-    #[Route("/api/habitats", methods: ['POST'])]
+    #[Route("",name: "create" ,methods: ['POST'])]
     public function create(
         Request $request,
         #[MapRequestPayload (
@@ -54,7 +58,7 @@ class HabitatController extends AbstractController
         ]
         )]
         Habitat $habitat,EntityManagerInterface $em
-        )
+        ) 
     {
         // $habitat = new Habitat();
         $habitat->setCreatedAt(new \DateTimeImmutable());
@@ -65,13 +69,30 @@ class HabitatController extends AbstractController
         'groups'=>['habitats.index', 'habitats.show']
         ]);
     }
+
+
+    /*#[Route('/{id}', name: 'update', methods: ['PUT', 'PATCH'])]
+    public function update(int $id, #[MapRequestPayload] HabitatDTO $habitatDTO, ValidatorInterface $validator): JsonResponse
+    {
+        $errors = $validator->validate($habitatDTO);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+            return $this->json(['errors' => $errorMessages], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $habitat = $this->entityManager->getRepository(Habitat::class)->find($id);
+        if (!$habitat) {
+            return $this->json('No habitat found for id ' . $id, JsonResponse::HTTP_NOT_FOUND);
+        }*/
 }
 
 
 
 
 /*
-
 namespace App\Controller\API;
 
 use App\Entity\Habitat;
@@ -134,8 +155,23 @@ class HabitatController extends AbstractController
 
         $this->entityManager->persist($habitat);
         $this->entityManager->flush();
+        $this->entityManager->refresh($habitat);  
 
-        return $this->json($this->getHabitatData($habitat), JsonResponse::HTTP_CREATED);
+        return $this->json([
+            'id' => $habitat->getId(),
+            'title' => $habitat->getTitle(),
+            'address' => $habitat->getAddress(),
+            'slug' => $habitat->getSlug(),
+            'content' => $habitat->getContent(),
+            'capacity' => $habitat->getCapacity(),
+            'nombre_de_couchage' => $habitat->getNombreDeCouchage(),
+            'price' => $habitat->getPrice(),
+            'file' => $habitat->getFile(),
+            'en_vente' => $habitat->isEnVente(),
+            'category_id' => $habitat->getCategory()?->getId(),
+            'ville_id' => $habitat->getVille()?->getId(),
+            'user_id' => $habitat->getUser()?->getId(),
+        ], JsonResponse::HTTP_CREATED);
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
@@ -200,19 +236,30 @@ class HabitatController extends AbstractController
         $habitat->setFile($habitatDTO->file);
         $habitat->setEnVente($habitatDTO->enVente);
 
+      
         if (isset($habitatDTO->categoryId)) {
             $category = $this->entityManager->getRepository(Category::class)->find($habitatDTO->categoryId);
-            $habitat->setCategory($category);
+            if ($category) {
+                $habitat->setCategory($category);
+            }
         }
-
+    
         if (isset($habitatDTO->villeId)) {
             $ville = $this->entityManager->getRepository(Ville::class)->find($habitatDTO->villeId);
-            $habitat->setVille($ville);
+            if ($ville) {
+                $habitat->setVille($ville);           
+             }
+           
+          
         }
-
+    
         if (isset($habitatDTO->userId)) {
             $user = $this->entityManager->getRepository(User::class)->find($habitatDTO->userId);
-            $habitat->setUser($user);
+            if ($user) {
+                $habitat->setUser($user);
+            }
+            
+         
         }
     }
 
@@ -235,5 +282,5 @@ class HabitatController extends AbstractController
         ];
     }
 }
-*/
 
+*/

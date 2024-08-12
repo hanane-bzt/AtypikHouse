@@ -24,8 +24,22 @@ class UserController extends AbstractController
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(): JsonResponse
     {
-        $users = $this->entityManager->getRepository(User::class)->findAll();
-        return $this->json($users, 200, [], ['groups' => 'user:read']);
+        $users = $this->entityManager
+            ->getRepository(User::class)
+            ->findAll();
+
+        $data = array_map(fn(user $user) => [
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'role'=>$user->getRoles(),
+            'isVerified'=>$user->isVerified(),
+
+
+
+        ], $users);
+
+        return $this->json($data);
     }
 
     #[Route('', name: 'create', methods: ['POST'])]

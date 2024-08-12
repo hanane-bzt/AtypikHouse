@@ -38,22 +38,20 @@ class HabitatDTO
     public ?bool $enVente=true;
 
     #[Assert\Type('int')]
-    public int $categoryId;
+    public ?int $categoryId=null;
+    public ?CategoryDTO $category = null;
 
     #[Assert\Type('int')]
-    public int $villeId;
+    public ?int $villeId=null;
 
     #[Assert\Type('int')]
-    public int $userId;
+    public ?int $userId=null;
 
-    #[Assert\Type(type: 'integer', message: "Le nombre de couchage doit être un nombre entier.")]
+    #[Assert\Type(type: 'int', message: "Le nombre de couchage doit être un nombre entier.")]
     #[Assert\PositiveOrZero(message: "Le nombre de couchage doit être un nombre positif ou zéro.")]
     public int $nombreDeCouchage;
 
-    public function __construct()
-    {
-        $this->nombreDeCouchage = 0; // ou une autre valeur par défaut appropriée
-    }
+    
 
    
 }

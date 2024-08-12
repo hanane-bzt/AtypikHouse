@@ -20,8 +20,19 @@ class CityController extends AbstractController
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(): JsonResponse
     {
-        $villes = $this->entityManager->getRepository(Ville::class)->findAll();
-        return $this->json($villes);
+        $villes = $this->entityManager
+        ->getRepository(Ville::class)
+        ->findAll();
+
+    $data = array_map(fn(Ville $ville) => [
+        'id' => $ville->getId(),
+        'name' => $ville->getName(),
+        'slug' => $ville->getSlug(),
+        'longitude' => $ville->getLongitude(),
+        'latitude' => $ville->getLatitude(),
+    ], $villes);
+
+    return $this->json($data);
     }
 
     #[Route('', name: 'create', methods: ['POST'])]

@@ -48,12 +48,11 @@ class Habitat
     #[Assert\Positive(message: 'La capacité doit être un nombre positif')]
     #[Groups(['habitats.show','habitats.create'])]
     private ?string $capacity = '';
-
+    
     #[ORM\Column]
-    #[Assert\NotBlank()]
-    #[Assert\Positive()]
+    #[Assert\Positive(message: "The number of beds must be positive")]
     #[Groups(['habitats.index','habitats.create'])]
-    private ?int $nombreDeCouchage = null;
+    private int $nombreDeCouchage = 1; // Default value of 1
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     #[Assert\Positive()]
@@ -91,17 +90,16 @@ class Habitat
     private ?File $thumbnailFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
-    #[Groups(['habitats.show'])]
+    #[Groups(['habitats.index','habitats.create'])]
     private ?Category $category = null;
 
     // #[ORM\ManyToOne(inversedBy: 'options', cascade: [' persist'])]    
     // private ?Option $option = null;
-
+    #[Groups(['habitats.index','habitats.create'])]
     #[ORM\ManyToOne(inversedBy: 'cities', cascade: ['persist'])]
 // /**
 //  * @ORM\JoinColumn(name="ville_id", referencedColumnName="id", onDelete="SET NULL")
 //  */
-#[Groups(['habitats.show'])]
 private ?Ville $ville = null;
 
 
@@ -112,7 +110,7 @@ private ?Ville $ville = null;
     private Collection $options;
     
 
-
+    #[Groups(['habitats.index','habitats.create'])]
     #[ORM\ManyToOne(inversedBy: 'habitats', cascade: ['persist'])]
     private ?User $user = null;
 
